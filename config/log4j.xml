@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %5p %m [%C.%M(%F:%L)][time:%r] [%t] %n"/>
+        </layout>
+    </appender>
+
+    <appender name="info" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File"
+               value="/peyundata/logs/tomcat/${dubbo.app.name}-${dubbo.protocol.port}-${log.host}/common.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] [%c %L] - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="DEBUG"/>
+            <param name="levelMax" value="WARN"/>
+            <param name="AcceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <appender name="fatal" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File"
+               value="/peyundata/logs/tomcat/${dubbo.app.name}-${dubbo.protocol.port}-${log.host}/fatal.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] [%c %L] - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="ERROR"/>
+            <param name="levelMax" value="FATAL"/>
+            <param name="AcceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <appender name="performance" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File"
+               value="/peyundata/logs/tomcat/${dubbo.app.name}-${dubbo.protocol.port}-${log.host}/performance.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="api" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File" value="/peyundata/logs/tomcat/${dubbo.app.name}-${dubbo.protocol.port}-${log.host}/api.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] [%c %L] - %m%n"/>
+        </layout>
+    </appender>
+
+    <!--dubbu log start-->
+    <appender name="dubbo.access" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="Append" value="true"/>
+        <param name="File"
+               value="/peyundata/logs/tomcat/${dubbo.app.name}-${dubbo.protocol.port}-${log.host}/dubbo.access.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %5p %m %n"/>
+        </layout>
+    </appender>
+    <!--dubbu log end-->
+
+    <appender name="monitor" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File"
+               value="/peyundata/logs/tomcat/${dubbo.app.name}-${dubbo.protocol.port}-${log.host}/monitor.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS} %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.intime.soa.framework.job.monitor.DubboStatisticsJob" additivity="true">
+        <level value="info"/>
+        <appender-ref ref="monitor"/>
+    </logger>
+
+    <logger name="com.intime.soa.framework.spring.interceptor.PerformanceMonitorInterceptor" additivity="true">
+        <level value="TRACE"/>
+        <appender-ref ref="performance"/>
+    </logger>
+
+    <logger name="org.springframework" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="fatal"/>
+    </logger>
+
+    <logger name="com.intime.soa.framework.dubbo" additivity="true">
+        <level value="info"/>
+        <appender-ref ref="dubbo.access"/>
+    </logger>
+
+    <logger name="com.intime.soa.framework.auth.AbstractAuthInterceptor" additivity="true">
+        <level value="info"/>
+        <appender-ref ref="api"/>
+    </logger>
+
+    <logger name="com.intime.soa.framework.result" additivity="true">
+        <level value="info"/>
+        <appender-ref ref="api"/>
+    </logger>
+
+    <root>
+        <level value="info"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="info"/>
+        <appender-ref ref="fatal"/>
+    </root>
+
+</log4j:configuration>

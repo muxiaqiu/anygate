@@ -1,0 +1,1586 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.intime.soa.anygate.mapper.GateUserIntimeMapper">
+
+    <resultMap id="Base_Result_Map" type="com.intime.soa.model.anygate.GateUserIntime">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="loginName" column="login_name" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="VARCHAR"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="defaultOrganid" column="default_organid" jdbcType="BIGINT"/>
+        <result property="idd" column="idd" jdbcType="BIGINT"/>
+        <result property="orgId" column="org_id" jdbcType="VARCHAR"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="tenantCode" column="tenant_code" jdbcType="VARCHAR"/>
+        <result property="cn" column="cn" jdbcType="VARCHAR"/>
+        <result property="promotionUrlTent" column="promotion_url_tent" jdbcType="VARCHAR"/>
+        <result property="promotionUrlHp" column="promotion_url_hp" jdbcType="VARCHAR"/>
+        <result property="promotionUrlApple" column="promotion_url_apple" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="performanceExamination" column="performance_examination" jdbcType="CHAR"/>
+        <result property="userImgUrl" column="user_img_url" jdbcType="VARCHAR"/>
+        <result property="mobilephone" column="mobilephone" jdbcType="VARCHAR"/>
+        <result property="pwdSign" column="pwd_sign" jdbcType="VARCHAR"/>
+        <result property="appUid" column="app_uid" jdbcType="VARCHAR"/>
+        <result property="ipLimit" column="ip_limit" jdbcType="VARCHAR"/>
+        <result property="needCaptcha" column="need_captcha" jdbcType="VARCHAR"/>
+        <result property="isWhiteListUser" column="is_white_list_user" jdbcType="VARCHAR"/>
+        <result property="isEnabled" column="is_enabled" jdbcType="VARCHAR"/>
+        <result property="updateStateTime" column="update_state_time" jdbcType="VARCHAR"/>
+        <result property="updateStateUser" column="update_state_user" jdbcType="VARCHAR"/>
+        <result property="updateIsEnabledTime" column="update_is_enabled_time" jdbcType="VARCHAR"/>
+        <result property="updateIsEnabledUser" column="update_is_enabled_user" jdbcType="VARCHAR"/>
+        <result property="passwordExpireDate" column="password_expire_date" jdbcType="VARCHAR"/>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="VARCHAR"/>
+        <result property="lastTimePassword" column="last_time_password" jdbcType="VARCHAR"/>
+        <result property="machineLimit" column="machine_limit" jdbcType="VARCHAR"/>
+        <result property="sys" column="sys" jdbcType="VARCHAR"/>
+        <result property="system" column="system" jdbcType="VARCHAR"/>
+        <result property="kzTicket" column="kz_ticket" jdbcType="VARCHAR"/>
+        <result property="kzUserId" column="kz_user_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,login_name,name,sex,mobile,tel,address,email,create_time,create_user,update_time,update_user,status,version,password,default_organid,idd,org_id,org_name,tenant_code,cn,promotion_url_tent,promotion_url_hp,promotion_url_apple,role,performance_examination,user_img_url,mobilephone,pwd_sign,app_uid,ip_limit,need_captcha,is_white_list_user,is_enabled,update_state_time,update_state_user,update_is_enabled_time,update_is_enabled_user,password_expire_date,last_login_time,last_time_password,machine_limit,sys,system,kz_ticket,kz_user_id
+	]]>
+    </sql>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateUserIntime">
+        <![CDATA[
+        INSERT INTO gate_user_intime (
+		 login_name,
+		 name,
+		 sex,
+		 mobile,
+		 tel,
+		 address,
+		 email,
+		 create_time,
+		 create_user,
+		 update_time,
+		 update_user,
+		 status,
+		 version,
+		 password,
+		 default_organid,
+		 idd,
+		 org_id,
+		 org_name,
+		 tenant_code,
+		 cn,
+		 promotion_url_tent,
+		 promotion_url_hp,
+		 promotion_url_apple,
+		 role,
+		 performance_examination,
+		 user_img_url,
+		 mobilephone,
+		 pwd_sign,
+		 app_uid,
+		 ip_limit,
+		 need_captcha,
+		 is_white_list_user,
+		 is_enabled,
+		 update_state_time,
+		 update_state_user,
+		 update_is_enabled_time,
+		 update_is_enabled_user,
+		 password_expire_date,
+		 last_login_time,
+		 last_time_password,
+		 machine_limit,
+		 sys,
+		 system,
+		 kz_ticket,
+		 kz_user_id
+        ) VALUES (
+		 #{loginName},
+		 #{name},
+		 #{sex},
+		 #{mobile},
+		 #{tel},
+		 #{address},
+		 #{email},
+		 #{createTime},
+		 #{createUser},
+		 #{updateTime},
+		 #{updateUser},
+		 #{status},
+		 #{version},
+		 #{password},
+		 #{defaultOrganid},
+		 #{idd},
+		 #{orgId},
+		 #{orgName},
+		 #{tenantCode},
+		 #{cn},
+		 #{promotionUrlTent},
+		 #{promotionUrlHp},
+		 #{promotionUrlApple},
+		 #{role},
+		 #{performanceExamination},
+		 #{userImgUrl},
+		 #{mobilephone},
+		 #{pwdSign},
+		 #{appUid},
+		 #{ipLimit},
+		 #{needCaptcha},
+		 #{isWhiteListUser},
+		 #{isEnabled},
+		 #{updateStateTime},
+		 #{updateStateUser},
+		 #{updateIsEnabledTime},
+		 #{updateIsEnabledUser},
+		 #{passwordExpireDate},
+		 #{lastLoginTime},
+		 #{lastTimePassword},
+		 #{machineLimit},
+		 #{sys},
+		 #{system},
+		 #{kzTicket},
+		 #{kzUserId}
+        )
+    ]]>
+    </insert>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO gate_user_intime (
+        login_name,
+        name,
+        sex,
+        mobile,
+        tel,
+        address,
+        email,
+        create_time,
+        create_user,
+        update_time,
+        update_user,
+        status,
+        version,
+        password,
+        default_organid,
+        idd,
+        org_id,
+        org_name,
+        tenant_code,
+        cn,
+        promotion_url_tent,
+        promotion_url_hp,
+        promotion_url_apple,
+        role,
+        performance_examination,
+        user_img_url,
+        mobilephone,
+        pwd_sign,
+        app_uid,
+        ip_limit,
+        need_captcha,
+        is_white_list_user,
+        is_enabled,
+        update_state_time,
+        update_state_user,
+        update_is_enabled_time,
+        update_is_enabled_user,
+        password_expire_date,
+        last_login_time,
+        last_time_password,
+        machine_limit,
+        sys,
+        system,
+        kz_ticket,
+        kz_user_id
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+		 #{item.loginName},
+		 #{item.name},
+		 #{item.sex},
+		 #{item.mobile},
+		 #{item.tel},
+		 #{item.address},
+		 #{item.email},
+		 #{item.createTime},
+		 #{item.createUser},
+		 #{item.updateTime},
+		 #{item.updateUser},
+		 #{item.status},
+		 #{item.version},
+		 #{item.password},
+		 #{item.defaultOrganid},
+		 #{item.idd},
+		 #{item.orgId},
+		 #{item.orgName},
+		 #{item.tenantCode},
+		 #{item.cn},
+		 #{item.promotionUrlTent},
+		 #{item.promotionUrlHp},
+		 #{item.promotionUrlApple},
+		 #{item.role},
+		 #{item.performanceExamination},
+		 #{item.userImgUrl},
+		 #{item.mobilephone},
+		 #{item.pwdSign},
+		 #{item.appUid},
+		 #{item.ipLimit},
+		 #{item.needCaptcha},
+		 #{item.isWhiteListUser},
+		 #{item.isEnabled},
+		 #{item.updateStateTime},
+		 #{item.updateStateUser},
+		 #{item.updateIsEnabledTime},
+		 #{item.updateIsEnabledUser},
+		 #{item.passwordExpireDate},
+		 #{item.lastLoginTime},
+		 #{item.lastTimePassword},
+		 #{item.machineLimit},
+		 #{item.sys},
+		 #{item.system},
+		 #{item.kzTicket},
+		 #{item.kzUserId}
+		)
+		]]>
+        </foreach>
+    </insert>
+
+    <insert id="insertPartly" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateUserIntime">
+        INSERT INTO gate_user_intime
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test=" loginName != null and loginName != '' ">
+                login_name,
+            </if>
+            <if test=" name != null and name != '' ">
+                name,
+            </if>
+            <if test=" sex != null ">
+                sex,
+            </if>
+            <if test=" mobile != null and mobile != '' ">
+                mobile,
+            </if>
+            <if test=" tel != null and tel != '' ">
+                tel,
+            </if>
+            <if test=" address != null and address != '' ">
+                address,
+            </if>
+            <if test=" email != null and email != '' ">
+                email,
+            </if>
+            <if test=" createTime != null and createTime != '' ">
+                create_time,
+            </if>
+            <if test=" createUser != null and createUser != '' ">
+                create_user,
+            </if>
+            <if test=" updateTime != null and updateTime != '' ">
+                update_time,
+            </if>
+            <if test=" updateUser != null and updateUser != '' ">
+                update_user,
+            </if>
+            <if test=" status != null ">
+                status,
+            </if>
+            <if test=" version != null ">
+                version,
+            </if>
+            <if test=" password != null and password != '' ">
+                password,
+            </if>
+            <if test=" defaultOrganid != null ">
+                default_organid,
+            </if>
+            <if test=" idd != null ">
+                idd,
+            </if>
+            <if test=" orgId != null and orgId != '' ">
+                org_id,
+            </if>
+            <if test=" orgName != null and orgName != '' ">
+                org_name,
+            </if>
+            <if test=" tenantCode != null and tenantCode != '' ">
+                tenant_code,
+            </if>
+            <if test=" cn != null and cn != '' ">
+                cn,
+            </if>
+            <if test=" promotionUrlTent != null and promotionUrlTent != '' ">
+                promotion_url_tent,
+            </if>
+            <if test=" promotionUrlHp != null and promotionUrlHp != '' ">
+                promotion_url_hp,
+            </if>
+            <if test=" promotionUrlApple != null and promotionUrlApple != '' ">
+                promotion_url_apple,
+            </if>
+            <if test=" role != null and role != '' ">
+                role,
+            </if>
+            <if test=" performanceExamination != null and performanceExamination != '' ">
+                performance_examination,
+            </if>
+            <if test=" userImgUrl != null and userImgUrl != '' ">
+                user_img_url,
+            </if>
+            <if test=" mobilephone != null and mobilephone != '' ">
+                mobilephone,
+            </if>
+            <if test=" pwdSign != null and pwdSign != '' ">
+                pwd_sign,
+            </if>
+            <if test=" appUid != null and appUid != '' ">
+                app_uid,
+            </if>
+            <if test=" ipLimit != null and ipLimit != '' ">
+                ip_limit,
+            </if>
+            <if test=" needCaptcha != null and needCaptcha != '' ">
+                need_captcha,
+            </if>
+            <if test=" isWhiteListUser != null and isWhiteListUser != '' ">
+                is_white_list_user,
+            </if>
+            <if test=" isEnabled != null and isEnabled != '' ">
+                is_enabled,
+            </if>
+            <if test=" updateStateTime != null and updateStateTime != '' ">
+                update_state_time,
+            </if>
+            <if test=" updateStateUser != null and updateStateUser != '' ">
+                update_state_user,
+            </if>
+            <if test=" updateIsEnabledTime != null and updateIsEnabledTime != '' ">
+                update_is_enabled_time,
+            </if>
+            <if test=" updateIsEnabledUser != null and updateIsEnabledUser != '' ">
+                update_is_enabled_user,
+            </if>
+            <if test=" passwordExpireDate != null and passwordExpireDate != '' ">
+                password_expire_date,
+            </if>
+            <if test=" lastLoginTime != null and lastLoginTime != '' ">
+                last_login_time,
+            </if>
+            <if test=" lastTimePassword != null and lastTimePassword != '' ">
+                last_time_password,
+            </if>
+            <if test=" machineLimit != null and machineLimit != '' ">
+                machine_limit,
+            </if>
+            <if test=" sys != null and sys != '' ">
+                sys,
+            </if>
+            <if test=" system != null and system != '' ">
+                system,
+            </if>
+            <if test=" kzTicket != null and kzTicket != '' ">
+                kz_ticket,
+            </if>
+            <if test=" kzUserId != null and kzUserId != '' ">
+                kz_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" loginName != null and loginName != '' ">
+                #{loginName},
+            </if>
+            <if test=" name != null and name != '' ">
+                #{name},
+            </if>
+            <if test=" sex != null ">
+                #{sex},
+            </if>
+            <if test=" mobile != null and mobile != '' ">
+                #{mobile},
+            </if>
+            <if test=" tel != null and tel != '' ">
+                #{tel},
+            </if>
+            <if test=" address != null and address != '' ">
+                #{address},
+            </if>
+            <if test=" email != null and email != '' ">
+                #{email},
+            </if>
+            <if test=" createTime != null and createTime != '' ">
+                #{createTime},
+            </if>
+            <if test=" createUser != null and createUser != '' ">
+                #{createUser},
+            </if>
+            <if test=" updateTime != null and updateTime != '' ">
+                #{updateTime},
+            </if>
+            <if test=" updateUser != null and updateUser != '' ">
+                #{updateUser},
+            </if>
+            <if test=" status != null ">
+                #{status},
+            </if>
+            <if test=" version != null ">
+                #{version},
+            </if>
+            <if test=" password != null and password != '' ">
+                #{password},
+            </if>
+            <if test=" defaultOrganid != null ">
+                #{defaultOrganid},
+            </if>
+            <if test=" idd != null ">
+                #{idd},
+            </if>
+            <if test=" orgId != null and orgId != '' ">
+                #{orgId},
+            </if>
+            <if test=" orgName != null and orgName != '' ">
+                #{orgName},
+            </if>
+            <if test=" tenantCode != null and tenantCode != '' ">
+                #{tenantCode},
+            </if>
+            <if test=" cn != null and cn != '' ">
+                #{cn},
+            </if>
+            <if test=" promotionUrlTent != null and promotionUrlTent != '' ">
+                #{promotionUrlTent},
+            </if>
+            <if test=" promotionUrlHp != null and promotionUrlHp != '' ">
+                #{promotionUrlHp},
+            </if>
+            <if test=" promotionUrlApple != null and promotionUrlApple != '' ">
+                #{promotionUrlApple},
+            </if>
+            <if test=" role != null and role != '' ">
+                #{role},
+            </if>
+            <if test=" performanceExamination != null and performanceExamination != '' ">
+                #{performanceExamination},
+            </if>
+            <if test=" userImgUrl != null and userImgUrl != '' ">
+                #{userImgUrl},
+            </if>
+            <if test=" mobilephone != null and mobilephone != '' ">
+                #{mobilephone},
+            </if>
+            <if test=" pwdSign != null and pwdSign != '' ">
+                #{pwdSign},
+            </if>
+            <if test=" appUid != null and appUid != '' ">
+                #{appUid},
+            </if>
+            <if test=" ipLimit != null and ipLimit != '' ">
+                #{ipLimit},
+            </if>
+            <if test=" needCaptcha != null and needCaptcha != '' ">
+                #{needCaptcha},
+            </if>
+            <if test=" isWhiteListUser != null and isWhiteListUser != '' ">
+                #{isWhiteListUser},
+            </if>
+            <if test=" isEnabled != null and isEnabled != '' ">
+                #{isEnabled},
+            </if>
+            <if test=" updateStateTime != null and updateStateTime != '' ">
+                #{updateStateTime},
+            </if>
+            <if test=" updateStateUser != null and updateStateUser != '' ">
+                #{updateStateUser},
+            </if>
+            <if test=" updateIsEnabledTime != null and updateIsEnabledTime != '' ">
+                #{updateIsEnabledTime},
+            </if>
+            <if test=" updateIsEnabledUser != null and updateIsEnabledUser != '' ">
+                #{updateIsEnabledUser},
+            </if>
+            <if test=" passwordExpireDate != null and passwordExpireDate != '' ">
+                #{passwordExpireDate},
+            </if>
+            <if test=" lastLoginTime != null and lastLoginTime != '' ">
+                #{lastLoginTime},
+            </if>
+            <if test=" lastTimePassword != null and lastTimePassword != '' ">
+                #{lastTimePassword},
+            </if>
+            <if test=" machineLimit != null and machineLimit != '' ">
+                #{machineLimit},
+            </if>
+            <if test=" sys != null and sys != '' ">
+                #{sys},
+            </if>
+            <if test=" system != null and system != '' ">
+                #{system},
+            </if>
+            <if test=" kzTicket != null and kzTicket != '' ">
+                #{kzTicket},
+            </if>
+            <if test=" kzUserId != null and kzUserId != '' ">
+                #{kzUserId},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertPartlyBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            INSERT INTO gate_user_intime
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test=" item.loginName != null and item.loginName != '' ">
+                    login_name,
+                </if>
+                <if test=" item.name != null and item.name != '' ">
+                    name,
+                </if>
+                <if test=" item.sex != null ">
+                    sex,
+                </if>
+                <if test=" item.mobile != null and item.mobile != '' ">
+                    mobile,
+                </if>
+                <if test=" item.tel != null and item.tel != '' ">
+                    tel,
+                </if>
+                <if test=" item.address != null and item.address != '' ">
+                    address,
+                </if>
+                <if test=" item.email != null and item.email != '' ">
+                    email,
+                </if>
+                <if test=" item.createTime != null and item.createTime != '' ">
+                    create_time,
+                </if>
+                <if test=" item.createUser != null and item.createUser != '' ">
+                    create_user,
+                </if>
+                <if test=" item.updateTime != null and item.updateTime != '' ">
+                    update_time,
+                </if>
+                <if test=" item.updateUser != null and item.updateUser != '' ">
+                    update_user,
+                </if>
+                <if test=" item.status != null ">
+                    status,
+                </if>
+                <if test=" item.version != null ">
+                    version,
+                </if>
+                <if test=" item.password != null and item.password != '' ">
+                    password,
+                </if>
+                <if test=" item.defaultOrganid != null ">
+                    default_organid,
+                </if>
+                <if test=" item.idd != null ">
+                    idd,
+                </if>
+                <if test=" item.orgId != null and item.orgId != '' ">
+                    org_id,
+                </if>
+                <if test=" item.orgName != null and item.orgName != '' ">
+                    org_name,
+                </if>
+                <if test=" item.tenantCode != null and item.tenantCode != '' ">
+                    tenant_code,
+                </if>
+                <if test=" item.cn != null and item.cn != '' ">
+                    cn,
+                </if>
+                <if test=" item.promotionUrlTent != null and item.promotionUrlTent != '' ">
+                    promotion_url_tent,
+                </if>
+                <if test=" item.promotionUrlHp != null and item.promotionUrlHp != '' ">
+                    promotion_url_hp,
+                </if>
+                <if test=" item.promotionUrlApple != null and item.promotionUrlApple != '' ">
+                    promotion_url_apple,
+                </if>
+                <if test=" item.role != null and item.role != '' ">
+                    role,
+                </if>
+                <if test=" item.performanceExamination != null and item.performanceExamination != '' ">
+                    performance_examination,
+                </if>
+                <if test=" item.userImgUrl != null and item.userImgUrl != '' ">
+                    user_img_url,
+                </if>
+                <if test=" item.mobilephone != null and item.mobilephone != '' ">
+                    mobilephone,
+                </if>
+                <if test=" item.pwdSign != null and item.pwdSign != '' ">
+                    pwd_sign,
+                </if>
+                <if test=" item.appUid != null and item.appUid != '' ">
+                    app_uid,
+                </if>
+                <if test=" item.ipLimit != null and item.ipLimit != '' ">
+                    ip_limit,
+                </if>
+                <if test=" item.needCaptcha != null and item.needCaptcha != '' ">
+                    need_captcha,
+                </if>
+                <if test=" item.isWhiteListUser != null and item.isWhiteListUser != '' ">
+                    is_white_list_user,
+                </if>
+                <if test=" item.isEnabled != null and item.isEnabled != '' ">
+                    is_enabled,
+                </if>
+                <if test=" item.updateStateTime != null and item.updateStateTime != '' ">
+                    update_state_time,
+                </if>
+                <if test=" item.updateStateUser != null and item.updateStateUser != '' ">
+                    update_state_user,
+                </if>
+                <if test=" item.updateIsEnabledTime != null and item.updateIsEnabledTime != '' ">
+                    update_is_enabled_time,
+                </if>
+                <if test=" item.updateIsEnabledUser != null and item.updateIsEnabledUser != '' ">
+                    update_is_enabled_user,
+                </if>
+                <if test=" item.passwordExpireDate != null and item.passwordExpireDate != '' ">
+                    password_expire_date,
+                </if>
+                <if test=" item.lastLoginTime != null and item.lastLoginTime != '' ">
+                    last_login_time,
+                </if>
+                <if test=" item.lastTimePassword != null and item.lastTimePassword != '' ">
+                    last_time_password,
+                </if>
+                <if test=" item.machineLimit != null and item.machineLimit != '' ">
+                    machine_limit,
+                </if>
+                <if test=" item.sys != null and item.sys != '' ">
+                    sys,
+                </if>
+                <if test=" item.system != null and item.system != '' ">
+                    system,
+                </if>
+                <if test=" item.kzTicket != null and item.kzTicket != '' ">
+                    kz_ticket,
+                </if>
+                <if test=" item.kzUserId != null and item.kzUserId != '' ">
+                    kz_user_id,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test=" item.loginName != null and item.loginName != '' ">
+                    #{item.loginName},
+                </if>
+                <if test=" item.name != null and item.name != '' ">
+                    #{item.name},
+                </if>
+                <if test=" item.sex != null ">
+                    #{item.sex},
+                </if>
+                <if test=" item.mobile != null and item.mobile != '' ">
+                    #{item.mobile},
+                </if>
+                <if test=" item.tel != null and item.tel != '' ">
+                    #{item.tel},
+                </if>
+                <if test=" item.address != null and item.address != '' ">
+                    #{item.address},
+                </if>
+                <if test=" item.email != null and item.email != '' ">
+                    #{item.email},
+                </if>
+                <if test=" item.createTime != null and item.createTime != '' ">
+                    #{item.createTime},
+                </if>
+                <if test=" item.createUser != null and item.createUser != '' ">
+                    #{item.createUser},
+                </if>
+                <if test=" item.updateTime != null and item.updateTime != '' ">
+                    #{item.updateTime},
+                </if>
+                <if test=" item.updateUser != null and item.updateUser != '' ">
+                    #{item.updateUser},
+                </if>
+                <if test=" item.status != null ">
+                    #{item.status},
+                </if>
+                <if test=" item.version != null ">
+                    #{item.version},
+                </if>
+                <if test=" item.password != null and item.password != '' ">
+                    #{item.password},
+                </if>
+                <if test=" item.defaultOrganid != null ">
+                    #{item.defaultOrganid},
+                </if>
+                <if test=" item.idd != null ">
+                    #{item.idd},
+                </if>
+                <if test=" item.orgId != null and item.orgId != '' ">
+                    #{item.orgId},
+                </if>
+                <if test=" item.orgName != null and item.orgName != '' ">
+                    #{item.orgName},
+                </if>
+                <if test=" item.tenantCode != null and item.tenantCode != '' ">
+                    #{item.tenantCode},
+                </if>
+                <if test=" item.cn != null and item.cn != '' ">
+                    #{item.cn},
+                </if>
+                <if test=" item.promotionUrlTent != null and item.promotionUrlTent != '' ">
+                    #{item.promotionUrlTent},
+                </if>
+                <if test=" item.promotionUrlHp != null and item.promotionUrlHp != '' ">
+                    #{item.promotionUrlHp},
+                </if>
+                <if test=" item.promotionUrlApple != null and item.promotionUrlApple != '' ">
+                    #{item.promotionUrlApple},
+                </if>
+                <if test=" item.role != null and item.role != '' ">
+                    #{item.role},
+                </if>
+                <if test=" item.performanceExamination != null and item.performanceExamination != '' ">
+                    #{item.performanceExamination},
+                </if>
+                <if test=" item.userImgUrl != null and item.userImgUrl != '' ">
+                    #{item.userImgUrl},
+                </if>
+                <if test=" item.mobilephone != null and item.mobilephone != '' ">
+                    #{item.mobilephone},
+                </if>
+                <if test=" item.pwdSign != null and item.pwdSign != '' ">
+                    #{item.pwdSign},
+                </if>
+                <if test=" item.appUid != null and item.appUid != '' ">
+                    #{item.appUid},
+                </if>
+                <if test=" item.ipLimit != null and item.ipLimit != '' ">
+                    #{item.ipLimit},
+                </if>
+                <if test=" item.needCaptcha != null and item.needCaptcha != '' ">
+                    #{item.needCaptcha},
+                </if>
+                <if test=" item.isWhiteListUser != null and item.isWhiteListUser != '' ">
+                    #{item.isWhiteListUser},
+                </if>
+                <if test=" item.isEnabled != null and item.isEnabled != '' ">
+                    #{item.isEnabled},
+                </if>
+                <if test=" item.updateStateTime != null and item.updateStateTime != '' ">
+                    #{item.updateStateTime},
+                </if>
+                <if test=" item.updateStateUser != null and item.updateStateUser != '' ">
+                    #{item.updateStateUser},
+                </if>
+                <if test=" item.updateIsEnabledTime != null and item.updateIsEnabledTime != '' ">
+                    #{item.updateIsEnabledTime},
+                </if>
+                <if test=" item.updateIsEnabledUser != null and item.updateIsEnabledUser != '' ">
+                    #{item.updateIsEnabledUser},
+                </if>
+                <if test=" item.passwordExpireDate != null and item.passwordExpireDate != '' ">
+                    #{item.passwordExpireDate},
+                </if>
+                <if test=" item.lastLoginTime != null and item.lastLoginTime != '' ">
+                    #{item.lastLoginTime},
+                </if>
+                <if test=" item.lastTimePassword != null and item.lastTimePassword != '' ">
+                    #{item.lastTimePassword},
+                </if>
+                <if test=" item.machineLimit != null and item.machineLimit != '' ">
+                    #{item.machineLimit},
+                </if>
+                <if test=" item.sys != null and item.sys != '' ">
+                    #{item.sys},
+                </if>
+                <if test=" item.system != null and item.system != '' ">
+                    #{item.system},
+                </if>
+                <if test=" item.kzTicket != null and item.kzTicket != '' ">
+                    #{item.kzTicket},
+                </if>
+                <if test=" item.kzUserId != null and item.kzUserId != '' ">
+                    #{item.kzUserId},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.intime.soa.model.anygate.GateUserIntime">
+        UPDATE gate_user_intime
+        <set>
+            <if test=" loginName != null and loginName != '' ">
+                login_name = #{loginName},
+            </if>
+            <if test=" name != null and name != '' ">
+                name = #{name},
+            </if>
+            <if test=" sex != null ">
+                sex = #{sex},
+            </if>
+            <if test=" mobile != null and mobile != '' ">
+                mobile = #{mobile},
+            </if>
+            <if test=" tel != null and tel != '' ">
+                tel = #{tel},
+            </if>
+            <if test=" address != null and address != '' ">
+                address = #{address},
+            </if>
+            <if test=" email != null and email != '' ">
+                email = #{email},
+            </if>
+            <if test=" createTime != null and createTime != '' ">
+                create_time = #{createTime},
+            </if>
+            <if test=" createUser != null and createUser != '' ">
+                create_user = #{createUser},
+            </if>
+            <if test=" updateTime != null and updateTime != '' ">
+                update_time = #{updateTime},
+            </if>
+            <if test=" updateUser != null and updateUser != '' ">
+                update_user = #{updateUser},
+            </if>
+            <if test=" status != null ">
+                status = #{status},
+            </if>
+            <if test=" version != null ">
+                version = #{version},
+            </if>
+            <if test=" password != null and password != '' ">
+                password = #{password},
+            </if>
+            <if test=" defaultOrganid != null ">
+                default_organid = #{defaultOrganid},
+            </if>
+            <if test=" idd != null ">
+                idd = #{idd},
+            </if>
+            <if test=" orgId != null and orgId != '' ">
+                org_id = #{orgId},
+            </if>
+            <if test=" orgName != null and orgName != '' ">
+                org_name = #{orgName},
+            </if>
+            <if test=" tenantCode != null and tenantCode != '' ">
+                tenant_code = #{tenantCode},
+            </if>
+            <if test=" cn != null and cn != '' ">
+                cn = #{cn},
+            </if>
+            <if test=" promotionUrlTent != null and promotionUrlTent != '' ">
+                promotion_url_tent = #{promotionUrlTent},
+            </if>
+            <if test=" promotionUrlHp != null and promotionUrlHp != '' ">
+                promotion_url_hp = #{promotionUrlHp},
+            </if>
+            <if test=" promotionUrlApple != null and promotionUrlApple != '' ">
+                promotion_url_apple = #{promotionUrlApple},
+            </if>
+            <if test=" role != null and role != '' ">
+                role = #{role},
+            </if>
+            <if test=" performanceExamination != null and performanceExamination != '' ">
+                performance_examination = #{performanceExamination},
+            </if>
+            <if test=" userImgUrl != null and userImgUrl != '' ">
+                user_img_url = #{userImgUrl},
+            </if>
+            <if test=" mobilephone != null and mobilephone != '' ">
+                mobilephone = #{mobilephone},
+            </if>
+            <if test=" pwdSign != null and pwdSign != '' ">
+                pwd_sign = #{pwdSign},
+            </if>
+            <if test=" appUid != null and appUid != '' ">
+                app_uid = #{appUid},
+            </if>
+            <if test=" ipLimit != null and ipLimit != '' ">
+                ip_limit = #{ipLimit},
+            </if>
+            <if test=" needCaptcha != null and needCaptcha != '' ">
+                need_captcha = #{needCaptcha},
+            </if>
+            <if test=" isWhiteListUser != null and isWhiteListUser != '' ">
+                is_white_list_user = #{isWhiteListUser},
+            </if>
+            <if test=" isEnabled != null and isEnabled != '' ">
+                is_enabled = #{isEnabled},
+            </if>
+            <if test=" updateStateTime != null and updateStateTime != '' ">
+                update_state_time = #{updateStateTime},
+            </if>
+            <if test=" updateStateUser != null and updateStateUser != '' ">
+                update_state_user = #{updateStateUser},
+            </if>
+            <if test=" updateIsEnabledTime != null and updateIsEnabledTime != '' ">
+                update_is_enabled_time = #{updateIsEnabledTime},
+            </if>
+            <if test=" updateIsEnabledUser != null and updateIsEnabledUser != '' ">
+                update_is_enabled_user = #{updateIsEnabledUser},
+            </if>
+            <if test=" passwordExpireDate != null and passwordExpireDate != '' ">
+                password_expire_date = #{passwordExpireDate},
+            </if>
+            <if test=" lastLoginTime != null and lastLoginTime != '' ">
+                last_login_time = #{lastLoginTime},
+            </if>
+            <if test=" lastTimePassword != null and lastTimePassword != '' ">
+                last_time_password = #{lastTimePassword},
+            </if>
+            <if test=" machineLimit != null and machineLimit != '' ">
+                machine_limit = #{machineLimit},
+            </if>
+            <if test=" sys != null and sys != '' ">
+                sys = #{sys},
+            </if>
+            <if test=" system != null and system != '' ">
+                system = #{system},
+            </if>
+            <if test=" kzTicket != null and kzTicket != '' ">
+                kz_ticket = #{kzTicket},
+            </if>
+            <if test=" kzUserId != null and kzUserId != '' ">
+                kz_user_id = #{kzUserId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE gate_user_intime
+            <set>
+                <if test=" item.loginName != null and item.loginName != '' ">
+                    login_name = #{item.loginName},
+                </if>
+                <if test=" item.name != null and item.name != '' ">
+                    name = #{item.name},
+                </if>
+                <if test=" item.sex != null ">
+                    sex = #{item.sex},
+                </if>
+                <if test=" item.mobile != null and item.mobile != '' ">
+                    mobile = #{item.mobile},
+                </if>
+                <if test=" item.tel != null and item.tel != '' ">
+                    tel = #{item.tel},
+                </if>
+                <if test=" item.address != null and item.address != '' ">
+                    address = #{item.address},
+                </if>
+                <if test=" item.email != null and item.email != '' ">
+                    email = #{item.email},
+                </if>
+                <if test=" item.createTime != null and item.createTime != '' ">
+                    create_time = #{item.createTime},
+                </if>
+                <if test=" item.createUser != null and item.createUser != '' ">
+                    create_user = #{item.createUser},
+                </if>
+                <if test=" item.updateTime != null and item.updateTime != '' ">
+                    update_time = #{item.updateTime},
+                </if>
+                <if test=" item.updateUser != null and item.updateUser != '' ">
+                    update_user = #{item.updateUser},
+                </if>
+                <if test=" item.status != null ">
+                    status = #{item.status},
+                </if>
+                <if test=" item.version != null ">
+                    version = #{item.version},
+                </if>
+                <if test=" item.password != null and item.password != '' ">
+                    password = #{item.password},
+                </if>
+                <if test=" item.defaultOrganid != null ">
+                    default_organid = #{item.defaultOrganid},
+                </if>
+                <if test=" item.idd != null ">
+                    idd = #{item.idd},
+                </if>
+                <if test=" item.orgId != null and item.orgId != '' ">
+                    org_id = #{item.orgId},
+                </if>
+                <if test=" item.orgName != null and item.orgName != '' ">
+                    org_name = #{item.orgName},
+                </if>
+                <if test=" item.tenantCode != null and item.tenantCode != '' ">
+                    tenant_code = #{item.tenantCode},
+                </if>
+                <if test=" item.cn != null and item.cn != '' ">
+                    cn = #{item.cn},
+                </if>
+                <if test=" item.promotionUrlTent != null and item.promotionUrlTent != '' ">
+                    promotion_url_tent = #{item.promotionUrlTent},
+                </if>
+                <if test=" item.promotionUrlHp != null and item.promotionUrlHp != '' ">
+                    promotion_url_hp = #{item.promotionUrlHp},
+                </if>
+                <if test=" item.promotionUrlApple != null and item.promotionUrlApple != '' ">
+                    promotion_url_apple = #{item.promotionUrlApple},
+                </if>
+                <if test=" item.role != null and item.role != '' ">
+                    role = #{item.role},
+                </if>
+                <if test=" item.performanceExamination != null and item.performanceExamination != '' ">
+                    performance_examination = #{item.performanceExamination},
+                </if>
+                <if test=" item.userImgUrl != null and item.userImgUrl != '' ">
+                    user_img_url = #{item.userImgUrl},
+                </if>
+                <if test=" item.mobilephone != null and item.mobilephone != '' ">
+                    mobilephone = #{item.mobilephone},
+                </if>
+                <if test=" item.pwdSign != null and item.pwdSign != '' ">
+                    pwd_sign = #{item.pwdSign},
+                </if>
+                <if test=" item.appUid != null and item.appUid != '' ">
+                    app_uid = #{item.appUid},
+                </if>
+                <if test=" item.ipLimit != null and item.ipLimit != '' ">
+                    ip_limit = #{item.ipLimit},
+                </if>
+                <if test=" item.needCaptcha != null and item.needCaptcha != '' ">
+                    need_captcha = #{item.needCaptcha},
+                </if>
+                <if test=" item.isWhiteListUser != null and item.isWhiteListUser != '' ">
+                    is_white_list_user = #{item.isWhiteListUser},
+                </if>
+                <if test=" item.isEnabled != null and item.isEnabled != '' ">
+                    is_enabled = #{item.isEnabled},
+                </if>
+                <if test=" item.updateStateTime != null and item.updateStateTime != '' ">
+                    update_state_time = #{item.updateStateTime},
+                </if>
+                <if test=" item.updateStateUser != null and item.updateStateUser != '' ">
+                    update_state_user = #{item.updateStateUser},
+                </if>
+                <if test=" item.updateIsEnabledTime != null and item.updateIsEnabledTime != '' ">
+                    update_is_enabled_time = #{item.updateIsEnabledTime},
+                </if>
+                <if test=" item.updateIsEnabledUser != null and item.updateIsEnabledUser != '' ">
+                    update_is_enabled_user = #{item.updateIsEnabledUser},
+                </if>
+                <if test=" item.passwordExpireDate != null and item.passwordExpireDate != '' ">
+                    password_expire_date = #{item.passwordExpireDate},
+                </if>
+                <if test=" item.lastLoginTime != null and item.lastLoginTime != '' ">
+                    last_login_time = #{item.lastLoginTime},
+                </if>
+                <if test=" item.lastTimePassword != null and item.lastTimePassword != '' ">
+                    last_time_password = #{item.lastTimePassword},
+                </if>
+                <if test=" item.machineLimit != null and item.machineLimit != '' ">
+                    machine_limit = #{item.machineLimit},
+                </if>
+                <if test=" item.sys != null and item.sys != '' ">
+                    sys = #{item.sys},
+                </if>
+                <if test=" item.system != null and item.system != '' ">
+                    system = #{item.system},
+                </if>
+                <if test=" item.kzTicket != null and item.kzTicket != '' ">
+                    kz_ticket = #{item.kzTicket},
+                </if>
+                <if test=" item.kzUserId != null and item.kzUserId != '' ">
+                    kz_user_id = #{item.kzUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="delete" parameterType="com.intime.soa.model.anygate.GateUserIntime">
+        DELETE FROM gate_user_intime
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" loginName != null and loginName != '' ">
+            AND login_name = #{loginName}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" sex != null ">
+            AND sex = #{sex}
+        </if>
+        <if test=" mobile != null and mobile != '' ">
+            AND mobile = #{mobile}
+        </if>
+        <if test=" tel != null and tel != '' ">
+            AND tel = #{tel}
+        </if>
+        <if test=" address != null and address != '' ">
+            AND address = #{address}
+        </if>
+        <if test=" email != null and email != '' ">
+            AND email = #{email}
+        </if>
+        <if test=" createTime != null and createTime != '' ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUser != null and createUser != '' ">
+            AND create_user = #{createUser}
+        </if>
+        <if test=" updateTime != null and updateTime != '' ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUser != null and updateUser != '' ">
+            AND update_user = #{updateUser}
+        </if>
+        <if test=" status != null ">
+            AND status = #{status}
+        </if>
+        <if test=" version != null ">
+            AND version = #{version}
+        </if>
+        <if test=" password != null and password != '' ">
+            AND password = #{password}
+        </if>
+        <if test=" defaultOrganid != null ">
+            AND default_organid = #{defaultOrganid}
+        </if>
+        <if test=" idd != null ">
+            AND idd = #{idd}
+        </if>
+        <if test=" orgId != null and orgId != '' ">
+            AND org_id = #{orgId}
+        </if>
+        <if test=" orgName != null and orgName != '' ">
+            AND org_name = #{orgName}
+        </if>
+        <if test=" tenantCode != null and tenantCode != '' ">
+            AND tenant_code = #{tenantCode}
+        </if>
+        <if test=" cn != null and cn != '' ">
+            AND cn = #{cn}
+        </if>
+        <if test=" promotionUrlTent != null and promotionUrlTent != '' ">
+            AND promotion_url_tent = #{promotionUrlTent}
+        </if>
+        <if test=" promotionUrlHp != null and promotionUrlHp != '' ">
+            AND promotion_url_hp = #{promotionUrlHp}
+        </if>
+        <if test=" promotionUrlApple != null and promotionUrlApple != '' ">
+            AND promotion_url_apple = #{promotionUrlApple}
+        </if>
+        <if test=" role != null and role != '' ">
+            AND role = #{role}
+        </if>
+        <if test=" performanceExamination != null and performanceExamination != '' ">
+            AND performance_examination = #{performanceExamination}
+        </if>
+        <if test=" userImgUrl != null and userImgUrl != '' ">
+            AND user_img_url = #{userImgUrl}
+        </if>
+        <if test=" mobilephone != null and mobilephone != '' ">
+            AND mobilephone = #{mobilephone}
+        </if>
+        <if test=" pwdSign != null and pwdSign != '' ">
+            AND pwd_sign = #{pwdSign}
+        </if>
+        <if test=" appUid != null and appUid != '' ">
+            AND app_uid = #{appUid}
+        </if>
+        <if test=" ipLimit != null and ipLimit != '' ">
+            AND ip_limit = #{ipLimit}
+        </if>
+        <if test=" needCaptcha != null and needCaptcha != '' ">
+            AND need_captcha = #{needCaptcha}
+        </if>
+        <if test=" isWhiteListUser != null and isWhiteListUser != '' ">
+            AND is_white_list_user = #{isWhiteListUser}
+        </if>
+        <if test=" isEnabled != null and isEnabled != '' ">
+            AND is_enabled = #{isEnabled}
+        </if>
+        <if test=" updateStateTime != null and updateStateTime != '' ">
+            AND update_state_time = #{updateStateTime}
+        </if>
+        <if test=" updateStateUser != null and updateStateUser != '' ">
+            AND update_state_user = #{updateStateUser}
+        </if>
+        <if test=" updateIsEnabledTime != null and updateIsEnabledTime != '' ">
+            AND update_is_enabled_time = #{updateIsEnabledTime}
+        </if>
+        <if test=" updateIsEnabledUser != null and updateIsEnabledUser != '' ">
+            AND update_is_enabled_user = #{updateIsEnabledUser}
+        </if>
+        <if test=" passwordExpireDate != null and passwordExpireDate != '' ">
+            AND password_expire_date = #{passwordExpireDate}
+        </if>
+        <if test=" lastLoginTime != null and lastLoginTime != '' ">
+            AND last_login_time = #{lastLoginTime}
+        </if>
+        <if test=" lastTimePassword != null and lastTimePassword != '' ">
+            AND last_time_password = #{lastTimePassword}
+        </if>
+        <if test=" machineLimit != null and machineLimit != '' ">
+            AND machine_limit = #{machineLimit}
+        </if>
+        <if test=" sys != null and sys != '' ">
+            AND sys = #{sys}
+        </if>
+        <if test=" system != null and system != '' ">
+            AND system = #{system}
+        </if>
+        <if test=" kzTicket != null and kzTicket != '' ">
+            AND kz_ticket = #{kzTicket}
+        </if>
+        <if test=" kzUserId != null and kzUserId != '' ">
+            AND kz_user_id = #{kzUserId}
+        </if>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        <![CDATA[
+        DELETE FROM gate_user_intime WHERE id = #{id}
+    ]]>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryById" resultMap="Base_Result_Map" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <![CDATA[
+		FROM gate_user_intime 
+	    WHERE id = #{id}
+	    ]]>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="query" resultMap="Base_Result_Map" parameterType="HashMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gate_user_intime
+        WHERE 1=1
+        AND is_delete = '0'
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" loginName != null and loginName != '' ">
+            AND login_name = #{loginName}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" sex != null ">
+            AND sex = #{sex}
+        </if>
+        <if test=" mobile != null and mobile != '' ">
+            AND mobile = #{mobile}
+        </if>
+        <if test=" tel != null and tel != '' ">
+            AND tel = #{tel}
+        </if>
+        <if test=" address != null and address != '' ">
+            AND address = #{address}
+        </if>
+        <if test=" email != null and email != '' ">
+            AND email = #{email}
+        </if>
+        <if test=" createTime != null and createTime != '' ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUser != null and createUser != '' ">
+            AND create_user = #{createUser}
+        </if>
+        <if test=" updateTime != null and updateTime != '' ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUser != null and updateUser != '' ">
+            AND update_user = #{updateUser}
+        </if>
+        <if test=" status != null ">
+            AND status = #{status}
+        </if>
+        <if test=" version != null ">
+            AND version = #{version}
+        </if>
+        <if test=" password != null and password != '' ">
+            AND password = #{password}
+        </if>
+        <if test=" defaultOrganid != null ">
+            AND default_organid = #{defaultOrganid}
+        </if>
+        <if test=" idd != null ">
+            AND idd = #{idd}
+        </if>
+        <if test=" orgId != null and orgId != '' ">
+            AND org_id = #{orgId}
+        </if>
+        <if test=" orgName != null and orgName != '' ">
+            AND org_name = #{orgName}
+        </if>
+        <if test=" tenantCode != null and tenantCode != '' ">
+            AND tenant_code = #{tenantCode}
+        </if>
+        <if test=" cn != null and cn != '' ">
+            AND cn = #{cn}
+        </if>
+        <if test=" promotionUrlTent != null and promotionUrlTent != '' ">
+            AND promotion_url_tent = #{promotionUrlTent}
+        </if>
+        <if test=" promotionUrlHp != null and promotionUrlHp != '' ">
+            AND promotion_url_hp = #{promotionUrlHp}
+        </if>
+        <if test=" promotionUrlApple != null and promotionUrlApple != '' ">
+            AND promotion_url_apple = #{promotionUrlApple}
+        </if>
+        <if test=" role != null and role != '' ">
+            AND role = #{role}
+        </if>
+        <if test=" performanceExamination != null and performanceExamination != '' ">
+            AND performance_examination = #{performanceExamination}
+        </if>
+        <if test=" userImgUrl != null and userImgUrl != '' ">
+            AND user_img_url = #{userImgUrl}
+        </if>
+        <if test=" mobilephone != null and mobilephone != '' ">
+            AND mobilephone = #{mobilephone}
+        </if>
+        <if test=" pwdSign != null and pwdSign != '' ">
+            AND pwd_sign = #{pwdSign}
+        </if>
+        <if test=" appUid != null and appUid != '' ">
+            AND app_uid = #{appUid}
+        </if>
+        <if test=" ipLimit != null and ipLimit != '' ">
+            AND ip_limit = #{ipLimit}
+        </if>
+        <if test=" needCaptcha != null and needCaptcha != '' ">
+            AND need_captcha = #{needCaptcha}
+        </if>
+        <if test=" isWhiteListUser != null and isWhiteListUser != '' ">
+            AND is_white_list_user = #{isWhiteListUser}
+        </if>
+        <if test=" isEnabled != null and isEnabled != '' ">
+            AND is_enabled = #{isEnabled}
+        </if>
+        <if test=" updateStateTime != null and updateStateTime != '' ">
+            AND update_state_time = #{updateStateTime}
+        </if>
+        <if test=" updateStateUser != null and updateStateUser != '' ">
+            AND update_state_user = #{updateStateUser}
+        </if>
+        <if test=" updateIsEnabledTime != null and updateIsEnabledTime != '' ">
+            AND update_is_enabled_time = #{updateIsEnabledTime}
+        </if>
+        <if test=" updateIsEnabledUser != null and updateIsEnabledUser != '' ">
+            AND update_is_enabled_user = #{updateIsEnabledUser}
+        </if>
+        <if test=" passwordExpireDate != null and passwordExpireDate != '' ">
+            AND password_expire_date = #{passwordExpireDate}
+        </if>
+        <if test=" lastLoginTime != null and lastLoginTime != '' ">
+            AND last_login_time = #{lastLoginTime}
+        </if>
+        <if test=" lastTimePassword != null and lastTimePassword != '' ">
+            AND last_time_password = #{lastTimePassword}
+        </if>
+        <if test=" machineLimit != null and machineLimit != '' ">
+            AND machine_limit = #{machineLimit}
+        </if>
+        <if test=" sys != null and sys != '' ">
+            AND sys = #{sys}
+        </if>
+        <if test=" system != null and system != '' ">
+            AND system = #{system}
+        </if>
+        <if test=" kzTicket != null and kzTicket != '' ">
+            AND kz_ticket = #{kzTicket}
+        </if>
+        <if test=" kzUserId != null and kzUserId != '' ">
+            AND kz_user_id = #{kzUserId}
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT COUNT(1)
+        FROM gate_user_intime
+        WHERE 1=1
+        AND is_delete = '0'
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" loginName != null and loginName != '' ">
+            AND login_name = #{loginName}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" sex != null ">
+            AND sex = #{sex}
+        </if>
+        <if test=" mobile != null and mobile != '' ">
+            AND mobile = #{mobile}
+        </if>
+        <if test=" tel != null and tel != '' ">
+            AND tel = #{tel}
+        </if>
+        <if test=" address != null and address != '' ">
+            AND address = #{address}
+        </if>
+        <if test=" email != null and email != '' ">
+            AND email = #{email}
+        </if>
+        <if test=" createTime != null and createTime != '' ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUser != null and createUser != '' ">
+            AND create_user = #{createUser}
+        </if>
+        <if test=" updateTime != null and updateTime != '' ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUser != null and updateUser != '' ">
+            AND update_user = #{updateUser}
+        </if>
+        <if test=" status != null ">
+            AND status = #{status}
+        </if>
+        <if test=" version != null ">
+            AND version = #{version}
+        </if>
+        <if test=" password != null and password != '' ">
+            AND password = #{password}
+        </if>
+        <if test=" defaultOrganid != null ">
+            AND default_organid = #{defaultOrganid}
+        </if>
+        <if test=" idd != null ">
+            AND idd = #{idd}
+        </if>
+        <if test=" orgId != null and orgId != '' ">
+            AND org_id = #{orgId}
+        </if>
+        <if test=" orgName != null and orgName != '' ">
+            AND org_name = #{orgName}
+        </if>
+        <if test=" tenantCode != null and tenantCode != '' ">
+            AND tenant_code = #{tenantCode}
+        </if>
+        <if test=" cn != null and cn != '' ">
+            AND cn = #{cn}
+        </if>
+        <if test=" promotionUrlTent != null and promotionUrlTent != '' ">
+            AND promotion_url_tent = #{promotionUrlTent}
+        </if>
+        <if test=" promotionUrlHp != null and promotionUrlHp != '' ">
+            AND promotion_url_hp = #{promotionUrlHp}
+        </if>
+        <if test=" promotionUrlApple != null and promotionUrlApple != '' ">
+            AND promotion_url_apple = #{promotionUrlApple}
+        </if>
+        <if test=" role != null and role != '' ">
+            AND role = #{role}
+        </if>
+        <if test=" performanceExamination != null and performanceExamination != '' ">
+            AND performance_examination = #{performanceExamination}
+        </if>
+        <if test=" userImgUrl != null and userImgUrl != '' ">
+            AND user_img_url = #{userImgUrl}
+        </if>
+        <if test=" mobilephone != null and mobilephone != '' ">
+            AND mobilephone = #{mobilephone}
+        </if>
+        <if test=" pwdSign != null and pwdSign != '' ">
+            AND pwd_sign = #{pwdSign}
+        </if>
+        <if test=" appUid != null and appUid != '' ">
+            AND app_uid = #{appUid}
+        </if>
+        <if test=" ipLimit != null and ipLimit != '' ">
+            AND ip_limit = #{ipLimit}
+        </if>
+        <if test=" needCaptcha != null and needCaptcha != '' ">
+            AND need_captcha = #{needCaptcha}
+        </if>
+        <if test=" isWhiteListUser != null and isWhiteListUser != '' ">
+            AND is_white_list_user = #{isWhiteListUser}
+        </if>
+        <if test=" isEnabled != null and isEnabled != '' ">
+            AND is_enabled = #{isEnabled}
+        </if>
+        <if test=" updateStateTime != null and updateStateTime != '' ">
+            AND update_state_time = #{updateStateTime}
+        </if>
+        <if test=" updateStateUser != null and updateStateUser != '' ">
+            AND update_state_user = #{updateStateUser}
+        </if>
+        <if test=" updateIsEnabledTime != null and updateIsEnabledTime != '' ">
+            AND update_is_enabled_time = #{updateIsEnabledTime}
+        </if>
+        <if test=" updateIsEnabledUser != null and updateIsEnabledUser != '' ">
+            AND update_is_enabled_user = #{updateIsEnabledUser}
+        </if>
+        <if test=" passwordExpireDate != null and passwordExpireDate != '' ">
+            AND password_expire_date = #{passwordExpireDate}
+        </if>
+        <if test=" lastLoginTime != null and lastLoginTime != '' ">
+            AND last_login_time = #{lastLoginTime}
+        </if>
+        <if test=" lastTimePassword != null and lastTimePassword != '' ">
+            AND last_time_password = #{lastTimePassword}
+        </if>
+        <if test=" machineLimit != null and machineLimit != '' ">
+            AND machine_limit = #{machineLimit}
+        </if>
+        <if test=" sys != null and sys != '' ">
+            AND sys = #{sys}
+        </if>
+        <if test=" system != null and system != '' ">
+            AND system = #{system}
+        </if>
+        <if test=" kzTicket != null and kzTicket != '' ">
+            AND kz_ticket = #{kzTicket}
+        </if>
+        <if test=" kzUserId != null and kzUserId != '' ">
+            AND kz_user_id = #{kzUserId}
+        </if>
+    </select>
+
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="findMobileInsertUser" resultType="HashMap">
+        SELECT
+        name,
+        mobile
+        FROM
+        `gate_user_intime`
+        WHERE
+        mobile IS NOT NULL
+        AND mobile != '';
+    </select>
+</mapper>
+

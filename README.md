@@ -1,0 +1,1 @@
+VM options : -Ddubbo.app.name=soa-anygate-api -Ddubbo.protocol.port=20054 -Dfile.encoding=UTF-8

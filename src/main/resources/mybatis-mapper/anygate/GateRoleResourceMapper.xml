@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.intime.soa.anygate.mapper.GateRoleResourceMapper">
+
+    <resultMap id="Base_Result_Map" type="com.intime.soa.model.anygate.GateRoleResource">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="resourceId" column="resource_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,role_id,resource_id
+	]]>
+    </sql>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateRoleResource">
+        <![CDATA[
+        INSERT INTO gate_role_resource (
+         id,
+		 role_id,
+		 resource_id
+        ) VALUES (
+         #{id},
+		 #{roleId},
+		 #{resourceId}
+        )
+    ]]>
+    </insert>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO gate_role_resource (
+        id,
+        role_id,
+        resource_id
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+         #{item.id},
+		 #{item.roleId},
+		 #{item.resourceId}
+		)
+		]]>
+        </foreach>
+    </insert>
+
+    <insert id="insertPartly" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateRoleResource">
+        INSERT INTO gate_role_resource
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test=" id != null ">
+                id,
+            </if>
+            <if test=" roleId != null ">
+                role_id,
+            </if>
+            <if test=" resourceId != null ">
+                resource_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" id != null ">
+                #{id},
+            </if>
+            <if test=" roleId != null ">
+                #{roleId},
+            </if>
+            <if test=" resourceId != null ">
+                #{resourceId},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertPartlyBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            INSERT INTO gate_role_resource
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null ">
+                    id,
+                </if>
+                <if test=" item.roleId != null ">
+                    role_id,
+                </if>
+                <if test=" item.resourceId != null ">
+                    resource_id,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null ">
+                    #{item.id},
+                </if>
+                <if test=" item.roleId != null ">
+                    #{item.roleId},
+                </if>
+                <if test=" item.resourceId != null ">
+                    #{item.resourceId},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.intime.soa.model.anygate.GateRoleResource">
+        UPDATE gate_role_resource
+        <set>
+            <if test=" roleId != null ">
+                role_id = #{roleId},
+            </if>
+            <if test=" resourceId != null ">
+                resource_id = #{resourceId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE gate_role_resource
+            <set>
+                <if test=" item.roleId != null ">
+                    role_id = #{item.roleId},
+                </if>
+                <if test=" item.resourceId != null ">
+                    resource_id = #{item.resourceId},
+                </if>
+            </set>
+            WHERE id = item.id
+        </foreach>
+    </update>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="delete" parameterType="com.intime.soa.model.anygate.GateRoleResource">
+        DELETE FROM gate_role_resource
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" roleId != null ">
+            AND role_id = #{roleId}
+        </if>
+        <if test=" resourceId != null ">
+            AND resource_id = #{resourceId}
+        </if>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+        <![CDATA[
+        DELETE FROM gate_role_resource WHERE id = #{id}
+    ]]>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryById" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <![CDATA[
+		FROM gate_role_resource 
+	    WHERE id = #{id}
+	    ]]>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="query" resultMap="Base_Result_Map" parameterType="HashMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gate_role_resource
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" roleId != null ">
+            AND role_id = #{roleId}
+        </if>
+        <if test=" resourceId != null ">
+            AND resource_id = #{resourceId}
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT COUNT(1)
+        FROM gate_role_resource
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" roleId != null ">
+            AND role_id = #{roleId}
+        </if>
+        <if test=" resourceId != null ">
+            AND resource_id = #{resourceId}
+        </if>
+    </select>
+
+    <!--查询该角色下所有的资源 -->
+    <select id="queryResourceByRole" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT resource_id as resourceId
+        FROM gate_role_resource
+        WHERE role_id = #{roleId}
+    </select>
+
+    <!--查询该角色下所有的资源 -->
+    <select id="queryResourceByRoles" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        DISTINCT(grr.resource_id) as resourceId
+        FROM
+        gate_role AS gr
+        INNER JOIN gate_role_resource AS grr ON gr.id = grr.role_id
+        WHERE
+        gr.id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <select id="getRoleResourceByRoleId" resultType="HashMap" parameterType="java.util.List">
+        SELECT
+        a.role_id AS roleId,
+        a.resource_id AS resourceId,
+        c.NAME AS roleName
+        FROM
+        gate_role_resource AS a
+        LEFT JOIN gate_resource AS b ON a.resource_id = b.id
+        LEFT JOIN gate_role AS c ON c.id = a.role_id
+        WHERE a.role_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
+

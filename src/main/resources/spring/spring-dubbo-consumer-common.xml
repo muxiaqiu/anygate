@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--message-->
+    <dubbo:reference id="captchaNewService" interface="com.intime.soa.framework.service.message.CaptchaNewService"/>
+    <dubbo:reference id="smsNewService" interface="com.intime.soa.framework.service.message.SMSNewService"/>
+    <dubbo:reference id="mailService" interface="com.intime.soa.service.message.MailService"/>
+
+    <!--redis-->
+    <dubbo:reference id="redisCacheService" interface="com.intime.soa.framework.service.cache.RedisCacheService"/>
+</beans>

@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.intime.soa.anygate.mapper.GateUserRoleMapper">
+
+    <resultMap id="Base_Result_Map" type="com.intime.soa.model.anygate.GateUserRole">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,role_id,user_id
+	]]>
+    </sql>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateUserRole">
+        <![CDATA[
+        INSERT INTO gate_user_role (
+         id,
+		 role_id,
+		 user_id
+        ) VALUES (
+		 #{roleId},
+		 #{userId}
+        )
+    ]]>
+    </insert>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO gate_user_role (
+        id,
+        role_id,
+        user_id
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+         #{item.id},
+		 #{item.roleId},
+		 #{item.userId}
+		)
+		]]>
+        </foreach>
+    </insert>
+
+    <insert id="insertPartly" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateUserRole">
+        INSERT INTO gate_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test=" id != null ">
+                id,
+            </if>
+            <if test=" roleId != null ">
+                role_id,
+            </if>
+            <if test=" userId != null ">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" id != null ">
+                #{id},
+            </if>
+            <if test=" roleId != null ">
+                #{roleId},
+            </if>
+            <if test=" userId != null ">
+                #{userId},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertPartlyBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            INSERT INTO gate_user_role
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null ">
+                    id,
+                </if>
+                <if test=" item.roleId != null ">
+                    role_id,
+                </if>
+                <if test=" item.userId != null ">
+                    user_id,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null ">
+                    #{item.id},
+                </if>
+                <if test=" item.roleId != null ">
+                    #{item.roleId},
+                </if>
+                <if test=" item.userId != null ">
+                    #{item.userId},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.intime.soa.model.anygate.GateUserRole">
+        UPDATE gate_user_role
+        <set>
+            <if test=" roleId != null ">
+                role_id = #{roleId},
+            </if>
+            <if test=" userId != null ">
+                user_id = #{userId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE gate_user_role
+            <set>
+                <if test=" item.roleId != null ">
+                    role_id = #{item.roleId},
+                </if>
+                <if test=" item.userId != null ">
+                    user_id = #{item.userId},
+                </if>
+            </set>
+            WHERE id = item.id
+        </foreach>
+    </update>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="delete" parameterType="com.intime.soa.model.anygate.GateUserRole">
+        DELETE FROM gate_user_role
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" roleId != null ">
+            AND role_id = #{roleId}
+        </if>
+        <if test=" userId != null ">
+            AND user_id = #{userId}
+        </if>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+        <![CDATA[
+        DELETE FROM gate_user_role WHERE id = #{id}
+    ]]>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="deleteBatch" parameterType="java.util.List">
+
+        <foreach collection="list" item="item" index="index" separator=";">
+            <!--UPDATE gate_user_role-->
+            <!--<set>-->
+            <!--<if test=" item.roleId != null ">-->
+            <!--role_id = #{item.roleId},-->
+            <!--</if>-->
+            <!--<if test=" item.userId != null ">-->
+            <!--user_id = #{item.userId},-->
+            <!--</if>-->
+            <!--</set>-->
+            <!--WHERE id = item.id-->
+            <![CDATA[
+        DELETE FROM gate_user_role WHERE role_id = #{item.roleId} AND user_id = #{item.userId}
+    	]]>
+        </foreach>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryById" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <![CDATA[
+		FROM gate_user_role 
+	    WHERE id = #{id}
+	    ]]>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="query" resultMap="Base_Result_Map" parameterType="HashMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gate_user_role
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" roleId != null ">
+            AND role_id = #{roleId}
+        </if>
+        <if test=" userId != null ">
+            AND user_id = #{userId}
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="getRoleCodeByUserId" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        CODE
+        FROM
+        gate_role
+        WHERE
+        id IN (
+        SELECT
+        role_id
+        FROM
+        gate_user_role
+        WHERE
+        user_id = #{userId}
+        );
+    </select>
+
+    <select id="queryUserIdsByRoleId" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        user_id AS userId
+        FROM
+        `gate_user_role`
+        WHERE
+        role_id = #{roleId}
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT COUNT(1)
+        FROM gate_user_role
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" roleId != null ">
+            AND role_id = #{roleId}
+        </if>
+        <if test=" userId != null ">
+            AND user_id = #{userId}
+        </if>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryUserByRole" resultType="HashMap" parameterType="HashMap">
+        SELECT
+        gur.id AS rid,
+        gur.user_id AS id,
+        gu.`name` AS name,
+        gu.mobile AS mobile,
+        gu.create_time as createTime,
+        gu.create_user_name as createUserName,
+        gu.update_time as updateTime,
+        gu.update_user_name as updateUserName
+        FROM
+        gate_user_role AS gur
+        INNER JOIN gate_user AS gu ON gu.id = gur.user_id
+        WHERE
+        gur.role_id = #{roleId}
+        AND gu.is_delete = '0'
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="desc != null and desc != '' and desc =='1'">
+            DESC
+        </if>
+        <if test="desc != null and desc != '' and desc =='0'">
+            ASC
+        </if>
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryUserByRoleCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT
+        COUNT(1)
+        FROM
+        gate_user_role AS gur
+        INNER JOIN gate_user AS gu ON gu.id = gur.user_id
+        WHERE
+        gur.role_id = #{roleId}
+        AND gu.is_delete = '0'
+    </select>
+
+    <select id="getProjectByUserId" resultType="HashMap" parameterType="java.lang.String">
+        SELECT
+        id,
+        name,
+        protocol,
+        domain,
+        code,
+        storage AS resourcesTree
+        FROM
+        gate_project
+        WHERE
+        is_disabled='0'AND
+        is_delete='0' AND
+        id IN (
+        SELECT DISTINCT
+        (gr.project_id)
+        FROM
+        `gate_user_role` AS gur
+        INNER JOIN gate_role AS gr ON gur.role_id = gr.id
+        WHERE
+        gr.is_delete = '0' AND
+        gr.is_disabled = '0' AND
+        user_id = #{userId}
+        )
+    </select>
+
+    <select id="getResourceListByUserId" resultType="HashMap" parameterType="java.lang.String">
+        SELECT
+        grr.resource_id AS resourceId,
+        gr.parent_id AS parentId,
+        gr.project_id AS projectId,
+        gr.type,
+        gr.name,
+        gr.icon,
+        gr.method,
+        gr.path
+        FROM
+        gate_role_resource AS grr
+        INNER JOIN gate_resource AS gr ON grr.resource_id = gr.id
+        WHERE
+        gr.is_delete='0' AND
+        gr.is_disabled='0' AND
+        role_id IN (
+        SELECT
+        role_id
+        FROM
+        `gate_user_role` AS gur
+        INNER JOIN gate_role AS gr ON gur.role_id = gr.id
+        WHERE
+        gr.is_delete='0' AND
+        gr.is_disabled='0' AND
+        user_id = #{userId}
+        )
+    </select>
+
+    <select id="getResourceListByRoleCode" resultType="HashMap" parameterType="java.lang.String">
+        SELECT
+        grr.resource_id AS resourceId,
+        gr.parent_id AS parentId,
+        gr.project_id AS projectId,
+        gr.type,
+        gr.name,
+        gr.icon,
+        gr.method,
+        gr.path
+        FROM
+        gate_role_resource AS grr
+        INNER JOIN gate_resource AS gr ON grr.resource_id = gr.id
+        WHERE
+        gr.is_delete='0' AND
+        gr.is_disabled='0' AND
+        role_id IN (
+        SELECT
+        id
+        FROM
+        gate_role
+        WHERE
+        is_disabled='0' AND
+        is_delete='0' AND
+        code = #{code}
+        )
+    </select>
+
+    <select id="getResourceIdsByRoleCode" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        grr.resource_id AS resourceId
+        FROM
+        gate_role_resource AS grr
+        INNER JOIN gate_resource AS gr ON grr.resource_id = gr.id
+        WHERE
+        gr.is_delete='0' AND
+        gr.is_disabled='0' AND
+        role_id IN (
+        SELECT
+        id
+        FROM
+        gate_role
+        WHERE
+        is_disabled='0' AND
+        is_delete='0' AND
+        code = #{code}
+        )
+    </select>
+
+    <select id="getProject" resultType="HashMap">
+        SELECT
+        id,
+        name,
+        protocol,
+        domain,
+        code,
+        storage AS resourcesTree
+        FROM
+        gate_project
+        WHERE
+        is_disabled = '0' AND
+        is_delete='0'
+    </select>
+
+    <select id="getProjectManagers" resultType="HashMap">
+        SELECT
+        id,
+        name,
+        protocol,
+        domain,
+        code,
+        storage AS resourcesTree,
+        managers
+        FROM
+        gate_project
+        WHERE
+        is_disabled='0' AND
+        is_delete='0'
+    </select>
+
+    <select id="getAnyGateByCode" resultType="HashMap" parameterType="java.lang.String">
+        SELECT
+        id,
+        name,
+        protocol,
+        domain,
+        code,
+        storage AS resourcesTree,
+        managers
+        FROM
+        gate_project
+        WHERE
+        is_delete='0' AND code = #{code};
+    </select>
+
+    <select id="getResourceList" resultType="HashMap">
+        SELECT
+        id AS resourceId,
+        parent_id AS parentId,
+        project_id AS projectId,
+        type,
+        name,
+        icon,
+        method,
+        path
+        FROM
+        gate_resource
+        WHERE
+        is_disabled='0' AND
+        is_delete = '0'
+    </select>
+
+    <select id="getResourceListByProjectId" resultType="HashMap" parameterType="java.lang.String">
+        SELECT
+        id AS resourceId,
+        parent_id AS parentId,
+        project_id AS projectId,
+        type,
+        name,
+        icon,
+        method,
+        path
+        FROM
+        gate_resource
+        WHERE
+        is_delete = '0'
+        AND is_disabled='0'
+        AND project_id=#{projectId};
+    </select>
+
+    <select id="getResourceAuthModePartlyByProjectIds" resultType="HashMap" parameterType="java.util.List">
+        SELECT
+        id AS resourceId,
+        parent_id AS parentId,
+        project_id AS projectId,
+        type,
+        name,
+        icon,
+        method,
+        path
+        FROM
+        gate_resource
+        WHERE
+        is_disabled='0' AND
+        is_delete = '0' AND
+        (auth_mode = '0' || auth_mode='1') AND project_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getUserIsManager" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        user_id
+        FROM
+        gate_user_role
+        WHERE
+        role_id IN (
+        SELECT
+        managers
+        FROM
+        `gate_project`
+        WHERE
+        id = #{projectId}
+        )
+        AND user_id = #{userId};
+    </select>
+
+    <select id="getRolesByUserIdAndProjectIdWithoutAdmin" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT
+    b.id as roleId
+    FROM
+    gate_user_role as a
+    LEFT JOIN
+    gate_role AS b
+    ON a.role_id = b.id
+    WHERE a.user_id = #{userId} AND b.project_id = #{projectId} AND b.`name` != 'Admin';
+    </select>
+
+</mapper>
+

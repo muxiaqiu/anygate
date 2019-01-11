@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.intime.soa.anygate.mapper.GateLogParamMapper">
+
+    <resultMap id="Base_Result_Map" type="com.intime.soa.model.anygate.GateLogParam">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="param" column="param" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,param,create_time
+	]]>
+    </sql>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateLogParam">
+        <![CDATA[
+        INSERT INTO gate_log_param (
+		 param,
+		 create_time
+        ) VALUES (
+		 #{param},
+		 #{createTime}
+        )
+    ]]>
+    </insert>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO gate_log_param (
+        param,
+        create_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+		 #{item.param},
+		 #{item.createTime}
+		)
+		]]>
+        </foreach>
+    </insert>
+
+    <insert id="insertPartly" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateLogParam">
+        INSERT INTO gate_log_param
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test=" param != null and param != '' ">
+                param,
+            </if>
+            <if test=" createTime != null ">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" param != null and param != '' ">
+                #{param},
+            </if>
+            <if test=" createTime != null ">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertPartlyBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            INSERT INTO gate_log_param
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test=" item.param != null and item.param != '' ">
+                    param,
+                </if>
+                <if test=" item.createTime != null ">
+                    create_time,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test=" item.param != null and item.param != '' ">
+                    #{item.param},
+                </if>
+                <if test=" item.createTime != null ">
+                    #{item.createTime},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.intime.soa.model.anygate.GateLogParam">
+        UPDATE gate_log_param
+        <set>
+            <if test=" param != null and param != '' ">
+                param = #{param},
+            </if>
+            <if test=" createTime != null ">
+                create_time = #{createTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE gate_log_param
+            <set>
+                <if test=" item.param != null and item.param != '' ">
+                    param = #{item.param},
+                </if>
+                <if test=" item.createTime != null ">
+                    create_time = #{item.createTime},
+                </if>
+            </set>
+            WHERE id = item.id
+        </foreach>
+    </update>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="delete" parameterType="com.intime.soa.model.anygate.GateLogParam">
+        DELETE FROM gate_log_param
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" param != null and param != '' ">
+            AND param = #{param}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        <![CDATA[
+        DELETE FROM gate_log_param WHERE id = #{id}
+    ]]>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryById" resultMap="Base_Result_Map" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <![CDATA[
+		FROM gate_log_param 
+	    WHERE id = #{id}
+	    ]]>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="query" resultMap="Base_Result_Map" parameterType="HashMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gate_log_param
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" param != null and param != '' ">
+            AND param = #{param}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT COUNT(1)
+        FROM gate_log_param
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" param != null and param != '' ">
+            AND param = #{param}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+    </select>
+</mapper>
+

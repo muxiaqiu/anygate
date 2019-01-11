@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.intime.soa.anygate.mapper.GateUserMapper">
+
+    <resultMap id="Base_Result_Map" type="com.intime.soa.model.anygate.GateUser">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="isDisabled" column="is_disabled" jdbcType="VARCHAR"/>
+        <result property="isAdminManager" column="is_admin_manager" jdbcType="INTEGER"/>
+        <result property="machineLimit" column="machine_limit" jdbcType="VARCHAR"/>
+        <result property="appUid" column="app_uid" jdbcType="VARCHAR"/>
+        <result property="ipLimit" column="ip_limit" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="dataVersion" column="data_version" jdbcType="INTEGER"/>
+        <result property="isDelete" column="is_delete" jdbcType="VARCHAR"/>
+        <result property="dataTime" column="data_time" jdbcType="TIMESTAMP"/>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,name,mobile,is_disabled,is_admin_manager,machine_limit,app_uid,ip_limit,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,data_version,is_delete,data_time,last_login_time
+	]]>
+    </sql>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.intime.soa.model.anygate.GateUser">
+        <![CDATA[
+        INSERT INTO gate_user (
+         id,
+		 name,
+		 mobile,
+		 is_disabled,
+		 is_admin_manager,
+		 machine_limit,
+		 app_uid,
+		 ip_limit,
+		 create_time,
+		 create_user_id,
+		 create_user_name,
+		 update_time,
+		 update_user_id,
+		 update_user_name,
+		 data_version,
+		 is_delete,
+		 data_time,
+		 last_login_time
+        ) VALUES (
+         #{id},
+		 #{name},
+		 #{mobile},
+		 #{isDisabled},
+		 #{isAdminManager},
+		 #{machineLimit},
+		 #{appUid},
+		 #{ipLimit},
+		 #{createTime},
+		 #{createUserId},
+		 #{createUserName},
+		 #{updateTime},
+		 #{updateUserId},
+		 #{updateUserName},
+		 #{dataVersion},
+		 #{isDelete},
+		 #{dataTime},
+		 #{lastLoginTime}
+        )
+    ]]>
+    </insert>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO gate_user (
+        id,
+        name,
+        mobile,
+        is_disabled,
+        is_admin_manager,
+        machine_limit,
+        app_uid,
+        ip_limit,
+        create_time,
+        create_user_id,
+        create_user_name,
+        update_time,
+        update_user_id,
+        update_user_name,
+        data_version,
+        is_delete,
+        data_time,
+        last_login_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+         #{item.id},
+		 #{item.name},
+		 #{item.mobile},
+		 #{item.isDisabled},
+		 #{item.isAdminManager},
+		 #{item.machineLimit},
+		 #{item.appUid},
+		 #{item.ipLimit},
+		 #{item.createTime},
+		 #{item.createUserId},
+		 #{item.createUserName},
+		 #{item.updateTime},
+		 #{item.updateUserId},
+		 #{item.updateUserName},
+		 #{item.dataVersion},
+		 #{item.isDelete},
+		 #{item.dataTime},
+		 #{item.lastLoginTime}
+		)
+		]]>
+        </foreach>
+    </insert>
+
+    <insert id="insertBatchPartly" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO gate_user (
+        id,
+        name,
+        mobile,
+        create_time,
+        create_user_name
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+         #{item.id},
+		 #{item.name},
+		 #{item.mobile},
+		 #{item.createTime},
+		 #{item.createUserName}
+		)
+		]]>
+        </foreach>
+    </insert>
+
+    <insert id="insertPartly" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateUser">
+        INSERT INTO gate_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test=" id != null and id != '' ">
+                id,
+            </if>
+            <if test=" name != null and name != '' ">
+                name,
+            </if>
+            <if test=" mobile != null and mobile != '' ">
+                mobile,
+            </if>
+            <if test=" isDisabled != null and isDisabled != '' ">
+                is_disabled,
+            </if>
+            <if test=" isAdminManager != null ">
+                is_admin_manager,
+            </if>
+            <if test=" machineLimit != null and machineLimit != '' ">
+                machine_limit,
+            </if>
+            <if test=" appUid != null and appUid != '' ">
+                app_uid,
+            </if>
+            <if test=" ipLimit != null and ipLimit != '' ">
+                ip_limit,
+            </if>
+            <if test=" createTime != null ">
+                create_time,
+            </if>
+            <if test=" createUserId != null and createUserId != '' ">
+                create_user_id,
+            </if>
+            <if test=" createUserName != null and createUserName != '' ">
+                create_user_name,
+            </if>
+            <if test=" updateTime != null ">
+                update_time,
+            </if>
+            <if test=" updateUserId != null and updateUserId != '' ">
+                update_user_id,
+            </if>
+            <if test=" updateUserName != null and updateUserName != '' ">
+                update_user_name,
+            </if>
+            <if test=" dataVersion != null ">
+                data_version,
+            </if>
+            <if test=" isDelete != null and isDelete != '' ">
+                is_delete,
+            </if>
+            <if test=" dataTime != null ">
+                data_time,
+            </if>
+            <if test=" lastLoginTime != null and lastLoginTime != '' ">
+                last_login_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" id != null and id != '' ">
+                #{id},
+            </if>
+            <if test=" name != null and name != '' ">
+                #{name},
+            </if>
+            <if test=" mobile != null and mobile != '' ">
+                #{mobile},
+            </if>
+            <if test=" isDisabled != null and isDisabled != '' ">
+                #{isDisabled},
+            </if>
+            <if test=" isAdminManager != null ">
+                #{isAdminManager},
+            </if>
+            <if test=" machineLimit != null and machineLimit != '' ">
+                #{machineLimit},
+            </if>
+            <if test=" appUid != null and appUid != '' ">
+                #{appUid},
+            </if>
+            <if test=" ipLimit != null and ipLimit != '' ">
+                #{ipLimit},
+            </if>
+            <if test=" createTime != null ">
+                #{createTime},
+            </if>
+            <if test=" createUserId != null and createUserId != '' ">
+                #{createUserId},
+            </if>
+            <if test=" createUserName != null and createUserName != '' ">
+                #{createUserName},
+            </if>
+            <if test=" updateTime != null ">
+                #{updateTime},
+            </if>
+            <if test=" updateUserId != null and updateUserId != '' ">
+                #{updateUserId},
+            </if>
+            <if test=" updateUserName != null and updateUserName != '' ">
+                #{updateUserName},
+            </if>
+            <if test=" dataVersion != null ">
+                #{dataVersion},
+            </if>
+            <if test=" isDelete != null and isDelete != '' ">
+                #{isDelete},
+            </if>
+            <if test=" dataTime != null ">
+                #{dataTime},
+            </if>
+            <if test=" lastLoginTime != null and lastLoginTime != '' ">
+                #{lastLoginTime},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertPartlyBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            INSERT INTO gate_user
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null and item.id != '' ">
+                    id,
+                </if>
+                <if test=" item.name != null and item.name != '' ">
+                    name,
+                </if>
+                <if test=" item.mobile != null and item.mobile != '' ">
+                    mobile,
+                </if>
+                <if test=" item.isDisabled != null and item.isDisabled != '' ">
+                    is_disabled,
+                </if>
+                <if test=" item.isAdminManager != null ">
+                    is_admin_manager,
+                </if>
+                <if test=" item.machineLimit != null and item.machineLimit != '' ">
+                    machine_limit,
+                </if>
+                <if test=" item.appUid != null and item.appUid != '' ">
+                    app_uid,
+                </if>
+                <if test=" item.ipLimit != null and item.ipLimit != '' ">
+                    ip_limit,
+                </if>
+                <if test=" item.createTime != null ">
+                    create_time,
+                </if>
+                <if test=" item.createUserId != null and item.createUserId != '' ">
+                    create_user_id,
+                </if>
+                <if test=" item.createUserName != null and item.createUserName != '' ">
+                    create_user_name,
+                </if>
+                <if test=" item.updateTime != null ">
+                    update_time,
+                </if>
+                <if test=" item.updateUserId != null and item.updateUserId != '' ">
+                    update_user_id,
+                </if>
+                <if test=" item.updateUserName != null and item.updateUserName != '' ">
+                    update_user_name,
+                </if>
+                <if test=" item.dataVersion != null ">
+                    data_version,
+                </if>
+                <if test=" item.isDelete != null and item.isDelete != '' ">
+                    is_delete,
+                </if>
+                <if test=" item.dataTime != null ">
+                    data_time,
+                </if>
+                <if test=" item.lastLoginTime != null and item.lastLoginTime != '' ">
+                    last_login_time,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null and item.id != '' ">
+                    #{item.id},
+                </if>
+                <if test=" item.name != null and item.name != '' ">
+                    #{item.name},
+                </if>
+                <if test=" item.mobile != null and item.mobile != '' ">
+                    #{item.mobile},
+                </if>
+                <if test=" item.isDisabled != null and item.isDisabled != '' ">
+                    #{item.isDisabled},
+                </if>
+                <if test=" item.isAdminManager != null ">
+                    #{item.isAdminManager},
+                </if>
+                <if test=" item.machineLimit != null and item.machineLimit != '' ">
+                    #{item.machineLimit},
+                </if>
+                <if test=" item.appUid != null and item.appUid != '' ">
+                    #{item.appUid},
+                </if>
+                <if test=" item.ipLimit != null and item.ipLimit != '' ">
+                    #{item.ipLimit},
+                </if>
+                <if test=" item.createTime != null ">
+                    #{item.createTime},
+                </if>
+                <if test=" item.createUserId != null and item.createUserId != '' ">
+                    #{item.createUserId},
+                </if>
+                <if test=" item.createUserName != null and item.createUserName != '' ">
+                    #{item.createUserName},
+                </if>
+                <if test=" item.updateTime != null ">
+                    #{item.updateTime},
+                </if>
+                <if test=" item.updateUserId != null and item.updateUserId != '' ">
+                    #{item.updateUserId},
+                </if>
+                <if test=" item.updateUserName != null and item.updateUserName != '' ">
+                    #{item.updateUserName},
+                </if>
+                <if test=" item.dataVersion != null ">
+                    #{item.dataVersion},
+                </if>
+                <if test=" item.isDelete != null and item.isDelete != '' ">
+                    #{item.isDelete},
+                </if>
+                <if test=" item.dataTime != null ">
+                    #{item.dataTime},
+                </if>
+                <if test=" item.lastLoginTime != null and item.lastLoginTime != '' ">
+                    #{item.lastLoginTime},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.intime.soa.model.anygate.GateUser">
+        UPDATE gate_user
+        <set>
+            <if test=" name != null ">
+                name = #{name},
+            </if>
+            <if test=" mobile != null ">
+                mobile = #{mobile},
+            </if>
+            <if test=" isDisabled != null ">
+                is_disabled = #{isDisabled},
+            </if>
+            <if test=" isAdminManager != null ">
+                is_admin_manager = #{isAdminManager},
+            </if>
+            <if test=" machineLimit != null  ">
+                machine_limit = #{machineLimit},
+            </if>
+            <if test=" appUid != null ">
+                app_uid = #{appUid},
+            </if>
+            <if test=" ipLimit != null ">
+                ip_limit = #{ipLimit},
+            </if>
+            <if test=" createTime != null ">
+                create_time = #{createTime},
+            </if>
+            <if test=" createUserId != null ">
+                create_user_id = #{createUserId},
+            </if>
+            <if test=" createUserName != null ">
+                create_user_name = #{createUserName},
+            </if>
+            <if test=" updateTime != null ">
+                update_time = #{updateTime},
+            </if>
+            <if test=" updateUserId != null ">
+                update_user_id = #{updateUserId},
+            </if>
+            <if test=" updateUserName != null ">
+                update_user_name = #{updateUserName},
+            </if>
+            <if test=" dataVersion != null ">
+                data_version = #{dataVersion},
+            </if>
+            <if test=" isDelete != null ">
+                is_delete = #{isDelete},
+            </if>
+            <if test=" dataTime != null ">
+                data_time = #{dataTime},
+            </if>
+            <if test=" lastLoginTime != null ">
+                last_login_time = #{lastLoginTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE gate_user
+            <set>
+                <if test=" item.name != null ">
+                    name = #{item.name},
+                </if>
+                <if test=" item.mobile != null ">
+                    mobile = #{item.mobile},
+                </if>
+                <if test=" item.isDisabled != null ">
+                    is_disabled = #{item.isDisabled},
+                </if>
+                <if test=" item.isAdminManager != null ">
+                    is_admin_manager = #{item.isAdminManager},
+                </if>
+                <if test=" item.machineLimit != null ">
+                    machine_limit = #{item.machineLimit},
+                </if>
+                <if test=" item.appUid != null ">
+                    app_uid = #{item.appUid},
+                </if>
+                <if test=" item.ipLimit != null ">
+                    ip_limit = #{item.ipLimit},
+                </if>
+                <if test=" item.createTime != null ">
+                    create_time = #{item.createTime},
+                </if>
+                <if test=" item.createUserId != null ">
+                    create_user_id = #{item.createUserId},
+                </if>
+                <if test=" item.createUserName != null ">
+                    create_user_name = #{item.createUserName},
+                </if>
+                <if test=" item.updateTime != null ">
+                    update_time = #{item.updateTime},
+                </if>
+                <if test=" item.updateUserId != null ">
+                    update_user_id = #{item.updateUserId},
+                </if>
+                <if test=" item.updateUserName != null ">
+                    update_user_name = #{item.updateUserName},
+                </if>
+                <if test=" item.dataVersion != null ">
+                    data_version = #{item.dataVersion},
+                </if>
+                <if test=" item.isDelete != null ">
+                    is_delete = #{item.isDelete},
+                </if>
+                <if test=" item.dataTime != null ">
+                    data_time = #{item.dataTime},
+                </if>
+                <if test=" item.lastLoginTime != null ">
+                    last_login_time = #{item.lastLoginTime},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="delete" parameterType="com.intime.soa.model.anygate.GateUser">
+        DELETE FROM gate_user
+        WHERE 1=1
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" mobile != null and mobile != '' ">
+            AND mobile = #{mobile}
+        </if>
+        <if test=" isDisabled != null and isDisabled != '' ">
+            AND is_disabled = #{isDisabled}
+        </if>
+        <if test=" isAdminManager != null ">
+            AND is_admin_manager = #{isAdminManager}
+        </if>
+        <if test=" machineLimit != null and machineLimit != '' ">
+            AND machine_limit = #{machineLimit}
+        </if>
+        <if test=" appUid != null and appUid != '' ">
+            AND app_uid = #{appUid}
+        </if>
+        <if test=" ipLimit != null and ipLimit != '' ">
+            AND ip_limit = #{ipLimit}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUserId != null and createUserId != '' ">
+            AND create_user_id = #{createUserId}
+        </if>
+        <if test=" createUserName != null and createUserName != '' ">
+            AND create_user_name = #{createUserName}
+        </if>
+        <if test=" updateTime != null ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUserId != null and updateUserId != '' ">
+            AND update_user_id = #{updateUserId}
+        </if>
+        <if test=" updateUserName != null and updateUserName != '' ">
+            AND update_user_name = #{updateUserName}
+        </if>
+        <if test=" dataVersion != null ">
+            AND data_version = #{dataVersion}
+        </if>
+        <if test=" isDelete != null and isDelete != '' ">
+            AND is_delete = #{isDelete}
+        </if>
+        <if test=" dataTime != null ">
+            AND data_time = #{dataTime}
+        </if>
+        <if test=" lastLoginTime != null and lastLoginTime != '' ">
+            AND last_login_time = #{lastLoginTime}
+        </if>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+        <![CDATA[
+        DELETE FROM gate_user WHERE id = #{id}
+    ]]>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryById" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <![CDATA[
+		FROM gate_user
+	    WHERE id = #{id}
+	    ]]>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="query" resultMap="Base_Result_Map" parameterType="HashMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gate_user
+        WHERE 1=1
+        AND is_delete = '0'
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" mobile != null and mobile != '' ">
+            AND mobile = #{mobile}
+        </if>
+        <if test=" isDisabled != null and isDisabled != '' ">
+            AND is_disabled = #{isDisabled}
+        </if>
+        <if test=" isAdminManager != null ">
+            AND is_admin_manager = #{isAdminManager}
+        </if>
+        <if test=" machineLimit != null and machineLimit != '' ">
+            AND machine_limit = #{machineLimit}
+        </if>
+        <if test=" appUid != null and appUid != '' ">
+            AND app_uid = #{appUid}
+        </if>
+        <if test=" ipLimit != null and ipLimit != '' ">
+            AND ip_limit = #{ipLimit}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUserId != null and createUserId != '' ">
+            AND create_user_id = #{createUserId}
+        </if>
+        <if test=" createUserName != null and createUserName != '' ">
+            AND create_user_name = #{createUserName}
+        </if>
+        <if test=" updateTime != null ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUserId != null and updateUserId != '' ">
+            AND update_user_id = #{updateUserId}
+        </if>
+        <if test=" updateUserName != null and updateUserName != '' ">
+            AND update_user_name = #{updateUserName}
+        </if>
+        <if test=" dataVersion != null ">
+            AND data_version = #{dataVersion}
+        </if>
+        <if test=" isDelete != null and isDelete != '' ">
+            AND is_delete = #{isDelete}
+        </if>
+        <if test=" dataTime != null ">
+            AND data_time = #{dataTime}
+        </if>
+        <if test=" lastLoginTime != null and lastLoginTime != '' ">
+            AND last_login_time = #{lastLoginTime}
+        </if>
+        <if test=" like != null and like != '' ">
+            AND(name like #{like}
+            OR mobile like #{like})
+        </if>
+        <!--<if test="orderBy != null and orderBy != '' ">-->
+            <!--ORDER BY #{orderBy}-->
+        <!--</if>-->
+        <!--<if test="desc != null and desc != '' and desc =='1'">-->
+            <!--DESC-->
+        <!--</if>-->
+        <!--<if test="desc != null and desc != '' and desc =='0'">-->
+            <!--ASC-->
+        <!--</if>-->
+        ORDER BY create_time DESC
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT COUNT(1)
+        FROM gate_user
+        WHERE 1=1
+        AND is_delete = '0'
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" mobile != null and mobile != '' ">
+            AND mobile = #{mobile}
+        </if>
+        <if test=" isDisabled != null and isDisabled != '' ">
+            AND is_disabled = #{isDisabled}
+        </if>
+        <if test=" isAdminManager != null ">
+            AND is_admin_manager = #{isAdminManager}
+        </if>
+        <if test=" machineLimit != null and machineLimit != '' ">
+            AND machine_limit = #{machineLimit}
+        </if>
+        <if test=" appUid != null and appUid != '' ">
+            AND app_uid = #{appUid}
+        </if>
+        <if test=" ipLimit != null and ipLimit != '' ">
+            AND ip_limit = #{ipLimit}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUserId != null and createUserId != '' ">
+            AND create_user_id = #{createUserId}
+        </if>
+        <if test=" createUserName != null and createUserName != '' ">
+            AND create_user_name = #{createUserName}
+        </if>
+        <if test=" updateTime != null ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUserId != null and updateUserId != '' ">
+            AND update_user_id = #{updateUserId}
+        </if>
+        <if test=" updateUserName != null and updateUserName != '' ">
+            AND update_user_name = #{updateUserName}
+        </if>
+        <if test=" dataVersion != null ">
+            AND data_version = #{dataVersion}
+        </if>
+        <if test=" isDelete != null and isDelete != '' ">
+            AND is_delete = #{isDelete}
+        </if>
+        <if test=" dataTime != null ">
+            AND data_time = #{dataTime}
+        </if>
+        <if test=" lastLoginTime != null and lastLoginTime != '' ">
+            AND last_login_time = #{lastLoginTime}
+        </if>
+        <if test=" like != null and like != '' ">
+            AND(name like #{like}
+            OR mobile like #{like})
+        </if>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryUserBy" resultMap="Base_Result_Map" parameterType="HashMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gate_user
+        WHERE 1=1
+        AND is_delete = '0'
+        AND(name like #{like}
+        OR mobile like #{like})
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="desc != null and desc != '' and desc =='1'">
+            DESC
+        </if>
+        <if test="desc != null and desc != '' and desc =='0'">
+            ASC
+        </if>
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryUserByCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT
+        COUNT(1)
+        FROM gate_user
+        WHERE 1=1
+        AND is_delete = '0'
+        AND(name like #{like}
+        OR mobile like #{like})
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="desc != null and desc != '' and desc =='1'">
+            DESC
+        </if>
+        <if test="desc != null and desc != '' and desc =='0'">
+            ASC
+        </if>
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryNotDeleteUserByLists" resultType="java.lang.Long" parameterType="java.util.List">
+        SELECT
+        COUNT(1)
+        FROM gate_user
+        WHERE
+        is_delete = '0' AND
+        id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
+

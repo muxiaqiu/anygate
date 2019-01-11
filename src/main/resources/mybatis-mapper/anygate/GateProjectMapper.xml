@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.intime.soa.anygate.mapper.GateProjectMapper">
+
+    <resultMap id="Base_Result_Map" type="com.intime.soa.model.anygate.GateProject">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="protocol" column="protocol" jdbcType="VARCHAR"/>
+        <result property="domain" column="domain" jdbcType="VARCHAR"/>
+        <result property="managers" column="managers" jdbcType="VARCHAR"/>
+        <result property="storage" column="storage" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isDisabled" column="is_disabled" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUserId" column="create_user_id" jdbcType="VARCHAR"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="VARCHAR"/>
+        <result property="updateUserName" column="update_user_name" jdbcType="VARCHAR"/>
+        <result property="dataVersion" column="data_version" jdbcType="INTEGER"/>
+        <result property="isDelete" column="is_delete" jdbcType="VARCHAR"/>
+        <result property="dataTime" column="data_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="Base_Column_List">
+        <![CDATA[
+		id,code,name,protocol,domain,managers,storage,remark,is_disabled,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,data_version,is_delete,data_time
+	]]>
+    </sql>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateProject">
+        <![CDATA[
+        INSERT INTO gate_project (
+         id,
+		 code,
+		 name,
+		 protocol,
+		 domain,
+		 managers,
+		 storage,
+		 remark,
+		 is_disabled,
+		 create_time,
+		 create_user_id,
+		 create_user_name,
+		 update_time,
+		 update_user_id,
+		 update_user_name,
+		 data_version,
+		 is_delete,
+		 data_time
+        ) VALUES (
+         #{id},
+		 #{code},
+		 #{name},
+		 #{protocol},
+		 #{domain},
+		 #{managers},
+		 #{storage},
+		 #{remark},
+		 #{isDisabled},
+		 #{createTime},
+		 #{createUserId},
+		 #{createUserName},
+		 #{updateTime},
+		 #{updateUserId},
+		 #{updateUserName},
+		 #{dataVersion},
+		 #{isDelete},
+		 #{dataTime}
+        )
+    ]]>
+    </insert>
+
+    <!-- useGeneratedKeys="true"(主键自增)  keyProperty="xxx" for sqlserver and mysql -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO gate_project (
+        id,
+        code,
+        name,
+        protocol,
+        domain,
+        managers,
+        storage,
+        remark,
+        is_disabled,
+        create_time,
+        create_user_id,
+        create_user_name,
+        update_time,
+        update_user_id,
+        update_user_name,
+        data_version,
+        is_delete,
+        data_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            <![CDATA[
+        (
+         #{item.id},
+		 #{item.code},
+		 #{item.name},
+		 #{item.protocol},
+		 #{item.domain},
+		 #{item.managers},
+		 #{item.storage},
+		 #{item.remark},
+		 #{item.isDisabled},
+		 #{item.createTime},
+		 #{item.createUserId},
+		 #{item.createUserName},
+		 #{item.updateTime},
+		 #{item.updateUserId},
+		 #{item.updateUserName},
+		 #{item.dataVersion},
+		 #{item.isDelete},
+		 #{item.dataTime}
+		)
+		]]>
+        </foreach>
+    </insert>
+
+    <insert id="insertPartly" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.intime.soa.model.anygate.GateProject">
+        INSERT INTO gate_project
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test=" id != null and id != '' ">
+                id,
+            </if>
+            <if test=" code != null and code != '' ">
+                code,
+            </if>
+            <if test=" name != null and name != '' ">
+                name,
+            </if>
+            <if test=" protocol != null and protocol != '' ">
+                protocol,
+            </if>
+            <if test=" domain != null and domain != '' ">
+                domain,
+            </if>
+            <if test=" managers != null and managers != '' ">
+                managers,
+            </if>
+            <if test=" storage != null and storage != '' ">
+                storage,
+            </if>
+            <if test=" remark != null and remark != '' ">
+                remark,
+            </if>
+            <if test=" isDisabled != null and isDisabled != '' ">
+                is_disabled,
+            </if>
+            <if test=" createTime != null ">
+                create_time,
+            </if>
+            <if test=" createUserId != null and createUserId != '' ">
+                create_user_id,
+            </if>
+            <if test=" createUserName != null and createUserName != '' ">
+                create_user_name,
+            </if>
+            <if test=" updateTime != null ">
+                update_time,
+            </if>
+            <if test=" updateUserId != null and updateUserId != '' ">
+                update_user_id,
+            </if>
+            <if test=" updateUserName != null and updateUserName != '' ">
+                update_user_name,
+            </if>
+            <if test=" dataVersion != null ">
+                data_version,
+            </if>
+            <if test=" isDelete != null and isDelete != '' ">
+                is_delete,
+            </if>
+            <if test=" dataTime != null ">
+                data_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test=" id != null and id != '' ">
+                #{id},
+            </if>
+            <if test=" code != null and code != '' ">
+                #{code},
+            </if>
+            <if test=" name != null and name != '' ">
+                #{name},
+            </if>
+            <if test=" protocol != null and protocol != '' ">
+                #{protocol},
+            </if>
+            <if test=" domain != null and domain != '' ">
+                #{domain},
+            </if>
+            <if test=" managers != null and managers != '' ">
+                #{managers},
+            </if>
+            <if test=" storage != null and storage != '' ">
+                #{storage},
+            </if>
+            <if test=" remark != null and remark != '' ">
+                #{remark},
+            </if>
+            <if test=" isDisabled != null and isDisabled != '' ">
+                #{isDisabled},
+            </if>
+            <if test=" createTime != null ">
+                #{createTime},
+            </if>
+            <if test=" createUserId != null and createUserId != '' ">
+                #{createUserId},
+            </if>
+            <if test=" createUserName != null and createUserName != '' ">
+                #{createUserName},
+            </if>
+            <if test=" updateTime != null ">
+                #{updateTime},
+            </if>
+            <if test=" updateUserId != null and updateUserId != '' ">
+                #{updateUserId},
+            </if>
+            <if test=" updateUserName != null and updateUserName != '' ">
+                #{updateUserName},
+            </if>
+            <if test=" dataVersion != null ">
+                #{dataVersion},
+            </if>
+            <if test=" isDelete != null and isDelete != '' ">
+                #{isDelete},
+            </if>
+            <if test=" dataTime != null ">
+                #{dataTime},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertPartlyBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            INSERT INTO gate_project
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null and item.id != '' ">
+                    id,
+                </if>
+                <if test=" item.code != null and item.code != '' ">
+                    code,
+                </if>
+                <if test=" item.name != null and item.name != '' ">
+                    name,
+                </if>
+                <if test=" item.protocol != null and item.protocol != '' ">
+                    protocol,
+                </if>
+                <if test=" item.domain != null and item.domain != '' ">
+                    domain,
+                </if>
+                <if test=" item.managers != null and item.managers != '' ">
+                    managers,
+                </if>
+                <if test=" item.storage != null and item.storage != '' ">
+                    storage,
+                </if>
+                <if test=" item.remark != null and item.remark != '' ">
+                    remark,
+                </if>
+                <if test=" item.isDisabled != null and item.isDisabled != '' ">
+                    is_disabled,
+                </if>
+                <if test=" item.createTime != null ">
+                    create_time,
+                </if>
+                <if test=" item.createUserId != null and item.createUserId != '' ">
+                    create_user_id,
+                </if>
+                <if test=" item.createUserName != null and item.createUserName != '' ">
+                    create_user_name,
+                </if>
+                <if test=" item.updateTime != null ">
+                    update_time,
+                </if>
+                <if test=" item.updateUserId != null and item.updateUserId != '' ">
+                    update_user_id,
+                </if>
+                <if test=" item.updateUserName != null and item.updateUserName != '' ">
+                    update_user_name,
+                </if>
+                <if test=" item.dataVersion != null ">
+                    data_version,
+                </if>
+                <if test=" item.isDelete != null and item.isDelete != '' ">
+                    is_delete,
+                </if>
+                <if test=" item.dataTime != null ">
+                    data_time,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test=" item.id != null and item.id != '' ">
+                    #{item.id},
+                </if>
+                <if test=" item.code != null and item.code != '' ">
+                    #{item.code},
+                </if>
+                <if test=" item.name != null and item.name != '' ">
+                    #{item.name},
+                </if>
+                <if test=" item.protocol != null and item.protocol != '' ">
+                    #{item.protocol},
+                </if>
+                <if test=" item.domain != null and item.domain != '' ">
+                    #{item.domain},
+                </if>
+                <if test=" item.managers != null and item.managers != '' ">
+                    #{item.managers},
+                </if>
+                <if test=" item.storage != null and item.storage != '' ">
+                    #{item.storage},
+                </if>
+                <if test=" item.remark != null and item.remark != '' ">
+                    #{item.remark},
+                </if>
+                <if test=" item.isDisabled != null and item.isDisabled != '' ">
+                    #{item.isDisabled},
+                </if>
+                <if test=" item.createTime != null ">
+                    #{item.createTime},
+                </if>
+                <if test=" item.createUserId != null and item.createUserId != '' ">
+                    #{item.createUserId},
+                </if>
+                <if test=" item.createUserName != null and item.createUserName != '' ">
+                    #{item.createUserName},
+                </if>
+                <if test=" item.updateTime != null ">
+                    #{item.updateTime},
+                </if>
+                <if test=" item.updateUserId != null and item.updateUserId != '' ">
+                    #{item.updateUserId},
+                </if>
+                <if test=" item.updateUserName != null and item.updateUserName != '' ">
+                    #{item.updateUserName},
+                </if>
+                <if test=" item.dataVersion != null ">
+                    #{item.dataVersion},
+                </if>
+                <if test=" item.isDelete != null and item.isDelete != '' ">
+                    #{item.isDelete},
+                </if>
+                <if test=" item.dataTime != null ">
+                    #{item.dataTime},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.intime.soa.model.anygate.GateProject">
+        UPDATE gate_project
+        <set>
+            <if test=" code != null">
+                code = #{code},
+            </if>
+            <if test=" name != null">
+                name = #{name},
+            </if>
+            <if test=" protocol != null">
+                protocol = #{protocol},
+            </if>
+            <if test=" domain != null">
+                domain = #{domain},
+            </if>
+            <if test=" managers != null">
+                managers = #{managers},
+            </if>
+            <if test=" storage != null">
+                storage = #{storage},
+            </if>
+            <if test=" remark != null">
+                remark = #{remark},
+            </if>
+            <if test=" isDisabled != null">
+                is_disabled = #{isDisabled},
+            </if>
+            <if test=" createTime != null ">
+                create_time = #{createTime},
+            </if>
+            <if test=" createUserId != null">
+                create_user_id = #{createUserId},
+            </if>
+            <if test=" createUserName != null">
+                create_user_name = #{createUserName},
+            </if>
+            <if test=" updateTime != null ">
+                update_time = #{updateTime},
+            </if>
+            <if test=" updateUserId != null">
+                update_user_id = #{updateUserId},
+            </if>
+            <if test=" updateUserName != null">
+                update_user_name = #{updateUserName},
+            </if>
+            <if test=" dataVersion != null ">
+                data_version = #{dataVersion},
+            </if>
+            <if test=" isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+            <if test=" dataTime != null ">
+                data_time = #{dataTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE gate_project
+            <set>
+                <if test=" item.code != null">
+                    code = #{item.code},
+                </if>
+                <if test=" item.name != null">
+                    name = #{item.name},
+                </if>
+                <if test=" item.protocol != null">
+                    protocol = #{item.protocol},
+                </if>
+                <if test=" item.domain != null">
+                    domain = #{item.domain},
+                </if>
+                <if test=" item.managers != null">
+                    managers = #{item.managers},
+                </if>
+                <if test=" item.storage != null">
+                    storage = #{item.storage},
+                </if>
+                <if test=" item.remark != null">
+                    remark = #{item.remark},
+                </if>
+                <if test=" isDisabled != null">
+                    is_disabled = #{item.isDisabled},
+                </if>
+                <if test=" item.createTime != null ">
+                    create_time = #{item.createTime},
+                </if>
+                <if test=" item.createUserId != null">
+                    create_user_id = #{item.createUserId},
+                </if>
+                <if test=" item.createUserName != null ">
+                    create_user_name = #{item.createUserName},
+                </if>
+                <if test=" item.updateTime != null ">
+                    update_time = #{item.updateTime},
+                </if>
+                <if test=" item.updateUserId != null">
+                    update_user_id = #{item.updateUserId},
+                </if>
+                <if test=" item.updateUserName != null">
+                    update_user_name = #{item.updateUserName},
+                </if>
+                <if test=" item.dataVersion != null ">
+                    data_version = #{item.dataVersion},
+                </if>
+                <if test=" item.isDelete != null">
+                    is_delete = #{item.isDelete},
+                </if>
+                <if test=" item.dataTime != null ">
+                    data_time = #{item.dataTime},
+                </if>
+            </set>
+            WHERE id = item.id
+        </foreach>
+    </update>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="delete" parameterType="com.intime.soa.model.anygate.GateProject">
+        DELETE FROM gate_project
+        WHERE 1=1
+        <if test=" id != null and id != '' ">
+            AND id = #{id}
+        </if>
+        <if test=" code != null and code != '' ">
+            AND code = #{code}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" protocol != null and protocol != '' ">
+            AND protocol = #{protocol}
+        </if>
+        <if test=" domain != null and domain != '' ">
+            AND domain = #{domain}
+        </if>
+        <if test=" managers != null and managers != '' ">
+            AND managers = #{managers}
+        </if>
+        <if test=" storage != null and storage != '' ">
+            AND storage = #{storage}
+        </if>
+        <if test=" remark != null and remark != '' ">
+            AND remark = #{remark}
+        </if>
+        <if test=" isDisabled != null and isDisabled != '' ">
+            AND is_disabled = #{isDisabled}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUserId != null and createUserId != '' ">
+            AND create_user_id = #{createUserId}
+        </if>
+        <if test=" createUserName != null and createUserName != '' ">
+            AND create_user_name = #{createUserName}
+        </if>
+        <if test=" updateTime != null ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUserId != null and updateUserId != '' ">
+            AND update_user_id = #{updateUserId}
+        </if>
+        <if test=" updateUserName != null and updateUserName != '' ">
+            AND update_user_name = #{updateUserName}
+        </if>
+        <if test=" dataVersion != null ">
+            AND data_version = #{dataVersion}
+        </if>
+        <if test=" isDelete != null and isDelete != '' ">
+            AND is_delete = #{isDelete}
+        </if>
+        <if test=" dataTime != null ">
+            AND data_time = #{dataTime}
+        </if>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+        <![CDATA[
+        DELETE FROM gate_project WHERE id = #{id}
+    ]]>
+    </delete>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryById" resultMap="Base_Result_Map" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <![CDATA[
+		FROM gate_project
+	    WHERE id = #{id}
+	    ]]>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="query" resultMap="Base_Result_Map" parameterType="HashMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gate_project
+        WHERE 1=1
+        AND is_delete = '0'
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" code != null and code != '' ">
+            AND code = #{code}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" protocol != null and protocol != '' ">
+            AND protocol = #{protocol}
+        </if>
+        <if test=" domain != null and domain != '' ">
+            AND domain = #{domain}
+        </if>
+        <if test=" managers != null and managers != '' ">
+            AND managers = #{managers}
+        </if>
+        <if test=" storage != null and storage != '' ">
+            AND storage = #{storage}
+        </if>
+        <if test=" remark != null and remark != '' ">
+            AND remark = #{remark}
+        </if>
+        <if test=" isDisabled != null and isDisabled != '' ">
+            AND is_disabled = #{isDisabled}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUserId != null and createUserId != '' ">
+            AND create_user_id = #{createUserId}
+        </if>
+        <if test=" createUserName != null and createUserName != '' ">
+            AND create_user_name = #{createUserName}
+        </if>
+        <if test=" updateTime != null ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUserId != null and updateUserId != '' ">
+            AND update_user_id = #{updateUserId}
+        </if>
+        <if test=" updateUserName != null and updateUserName != '' ">
+            AND update_user_name = #{updateUserName}
+        </if>
+        <if test=" dataVersion != null ">
+            AND data_version = #{dataVersion}
+        </if>
+        <if test=" isDelete != null and isDelete != '' ">
+            AND is_delete = #{isDelete}
+        </if>
+        <if test=" dataTime != null ">
+            AND data_time = #{dataTime}
+        </if>
+        <!--<if test="orderBy != null and orderBy != '' ">-->
+            <!--ORDER BY ${orderBy}-->
+        <!--</if>-->
+        <!--<if test="desc != null and desc != '' and desc =='1'">-->
+            <!--DESC-->
+        <!--</if>-->
+        <!--<if test="desc != null and desc != '' and desc =='0'">-->
+            <!--ASC-->
+        <!--</if>-->
+        ORDER BY create_time DESC
+        <if test="offset != null and limit != null ">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!--传入id, 测试是否支持主键非id  -->
+    <select id="queryCount" resultType="java.lang.Long" parameterType="HashMap">
+        SELECT COUNT(1)
+        FROM gate_project
+        WHERE 1=1
+        AND is_delete = '0'
+        <if test=" id != null ">
+            AND id = #{id}
+        </if>
+        <if test=" code != null and code != '' ">
+            AND code = #{code}
+        </if>
+        <if test=" name != null and name != '' ">
+            AND name = #{name}
+        </if>
+        <if test=" protocol != null and protocol != '' ">
+            AND protocol = #{protocol}
+        </if>
+        <if test=" domain != null and domain != '' ">
+            AND domain = #{domain}
+        </if>
+        <if test=" managers != null and managers != '' ">
+            AND managers = #{managers}
+        </if>
+        <if test=" storage != null and storage != '' ">
+            AND storage = #{storage}
+        </if>
+        <if test=" remark != null and remark != '' ">
+            AND remark = #{remark}
+        </if>
+        <if test=" isDisabled != null and isDisabled != '' ">
+            AND is_disabled = #{isDisabled}
+        </if>
+        <if test=" createTime != null ">
+            AND create_time = #{createTime}
+        </if>
+        <if test=" createUserId != null and createUserId != '' ">
+            AND create_user_id = #{createUserId}
+        </if>
+        <if test=" createUserName != null and createUserName != '' ">
+            AND create_user_name = #{createUserName}
+        </if>
+        <if test=" updateTime != null ">
+            AND update_time = #{updateTime}
+        </if>
+        <if test=" updateUserId != null and updateUserId != '' ">
+            AND update_user_id = #{updateUserId}
+        </if>
+        <if test=" updateUserName != null and updateUserName != '' ">
+            AND update_user_name = #{updateUserName}
+        </if>
+        <if test=" dataVersion != null ">
+            AND data_version = #{dataVersion}
+        </if>
+        <if test=" isDelete != null and isDelete != '' ">
+            AND is_delete = #{isDelete}
+        </if>
+        <if test=" dataTime != null ">
+            AND data_time = #{dataTime}
+        </if>
+    </select>
+</mapper>
+
